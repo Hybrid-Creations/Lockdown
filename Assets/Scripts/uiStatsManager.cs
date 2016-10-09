@@ -6,8 +6,10 @@ public class uiStatsManager : MonoBehaviour {
 
     [SerializeField]
     Slider mindPowerSlider;
+    [SerializeField]
+    Text valueText;
 
-    //[HideInInspector]
+    [HideInInspector]
     public float currentMindPower;
     public float maxMindPower;
 
@@ -21,6 +23,7 @@ public class uiStatsManager : MonoBehaviour {
 
     void Update()
     {
+        valueText.text = currentMindPower.ToString();
         mindPowerSlider.value = currentMindPower;
     }
 }
