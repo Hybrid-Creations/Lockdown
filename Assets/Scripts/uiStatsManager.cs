@@ -24,3 +24,4 @@ public class uiStatsManager : MonoBehaviour {
         mindPowerSlider.value = currentMindPower;
     }
 }
+//Dank Memes
