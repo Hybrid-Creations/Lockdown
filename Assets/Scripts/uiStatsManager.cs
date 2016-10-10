@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿//Name: Tristan Burger
+//Date: 10/9/2016
+
+//Purpose: Updating and keeping values for UI
+
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
