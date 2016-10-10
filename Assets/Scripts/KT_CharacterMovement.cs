@@ -14,8 +14,13 @@ public class KT_CharacterMovement : MonoBehaviour {
 
     public GameObject currentControl;
 
-	// Use this for initialization
-	void Start () {
+    public static bool up;
+    public static bool right;
+    public static bool down;
+    public static bool left;
+
+    // Use this for initialization
+    void Start () {
         currentControl = GameObject.FindGameObjectWithTag("Player");
 	}
 	
@@ -29,19 +34,40 @@ public class KT_CharacterMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             currentControl.transform.position += currentControl.transform.up * moveSpeed;
-            //currentControl.GetComponent<Unit>().;
+
+            up = true;
+            right = false;
+            down = false;
+            left = false;
+            
         }
         if (Input.GetKey(KeyCode.A))
         {
             currentControl.transform.position += -currentControl.transform.right * moveSpeed;
+            up = false;
+            right = false;
+            down = false;
+            left = true;
         }
         if (Input.GetKey(KeyCode.D))
         {
             currentControl.transform.position += currentControl.transform.right * moveSpeed;
+            up = false;
+            right = true;
+            down = false;
+            left = false;
         }
         if (Input.GetKey(KeyCode.S))
         {
             currentControl.transform.position += -currentControl.transform.up * moveSpeed;
+            up = false;
+            right = false;
+            down = true;
+            left = false;
         }
+        currentControl.GetComponent<Unit>().lookDirections[0].gameObject.SetActive(up);
+        currentControl.GetComponent<Unit>().lookDirections[1].gameObject.SetActive(right);
+        currentControl.GetComponent<Unit>().lookDirections[2].gameObject.SetActive(down);
+        currentControl.GetComponent<Unit>().lookDirections[3].gameObject.SetActive(left);
     }
 }
