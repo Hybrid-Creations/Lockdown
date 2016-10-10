@@ -21,7 +21,8 @@ public class KT_CharacterMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        currentControl = GameObject.FindGameObjectWithTag("Player");
+        //currentControl = GameObject.FindGameObjectWithTag("Player");
+        down = true;
 	}
 	
 	// Update is called once per frame
