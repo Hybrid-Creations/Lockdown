@@ -29,6 +29,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             currentControl.transform.position += currentControl.transform.up * moveSpeed;
+            //currentControl.GetComponent<Unit>().;
         }
         if (Input.GetKey(KeyCode.A))
         {
