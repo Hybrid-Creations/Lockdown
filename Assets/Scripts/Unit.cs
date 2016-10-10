@@ -13,6 +13,8 @@ public class Unit : MonoBehaviour {
         UNCONTROLLABLE,
     }
 
+    public bool isControlled;
+
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
     public Waypoint[] waypoints;
@@ -29,7 +31,10 @@ public class Unit : MonoBehaviour {
     public Vector3 oldPosition;
     Vector3 difference;
 
-    float section;
+    [HideInInspector]
+    public float closestDistance;
+    [HideInInspector]
+    public float section;
 
     void Start()
     {
@@ -40,19 +45,20 @@ public class Unit : MonoBehaviour {
     {
         section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;
 
-        if(section > Vector3.Distance(originalPosition, waypointPosition))
+        if (section > Vector3.Distance(originalPosition, waypointPosition))
         {
             section = 0;
         }
         transform.position = Vector3.Lerp(originalPosition, waypointPosition, section);
-        if(Vector3.Distance(transform.position, waypointPosition) <= 0.05f)
+        if (Vector3.Distance(transform.position, waypointPosition) <= 0.05f)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        if(oldPosition != transform.position)
+
+        if (oldPosition != transform.position)
         {
             difference = transform.position - oldPosition;
-            if(difference.normalized.y > 0.5f)
+            if (difference.normalized.y > 0.5f)
             {
                 LookUp();
             }
@@ -69,7 +75,7 @@ public class Unit : MonoBehaviour {
                 LookLeft();
             }
         }
-        Debug.Log(difference.normalized);
+        //Debug.Log(difference.normalized);
         oldPosition = transform.position;
     }
 
@@ -79,7 +85,7 @@ public class Unit : MonoBehaviour {
 
         i++;
 
-        if( i >= waypoints.Length)
+        if (i >= waypoints.Length)
         {
             i = 0;
         }
@@ -97,7 +103,7 @@ public class Unit : MonoBehaviour {
             lookDirections[2].SetActive(false);
             lookDirections[3].SetActive(false);
         }
-        Debug.Log("looked Up");
+        //Debug.Log("looked Up");
     }
 
     public void LookRight()
@@ -119,7 +125,8 @@ public class Unit : MonoBehaviour {
             lookDirections[1].SetActive(false);
             lookDirections[2].SetActive(true);
             lookDirections[3].SetActive(false);
-        } }
+        }
+    }
 
     public void LookLeft()
     {
@@ -129,5 +136,19 @@ public class Unit : MonoBehaviour {
             lookDirections[1].SetActive(false);
             lookDirections[2].SetActive(false);
             lookDirections[3].SetActive(true);
-        } }
+        }
+    }
+
+    public void FindNearestWaypoint()
+    {
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, waypoints[i].transform.position) < closestDistance)
+            {
+                closestDistance = Vector3.Distance(transform.position, waypoints[i].transform.position);
+                currentWaypoint = i;
+            }
+        }
+            Debug.Log(currentWaypoint);
+    }
 }

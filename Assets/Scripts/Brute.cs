@@ -20,8 +20,9 @@ public class Brute : Unit {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-     //   Vector3 movementDir;
-     //   movementDir = waypoints[currentWaypoint].gameObject.transform.position - transform.position;
-	}
+	void Update ()
+    {
+        if(!isControlled)
+        MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+    }
 }

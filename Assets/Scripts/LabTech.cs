@@ -28,6 +28,7 @@ public class LabTech : Unit {
     // Update is called once per frame
     void Update()
     {
-        MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+        if (!isControlled)
+            MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
     }
 }

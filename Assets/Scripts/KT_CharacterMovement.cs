@@ -12,6 +12,9 @@ public class KT_CharacterMovement : MonoBehaviour {
     [SerializeField]
     float moveSpeed = 3;
 
+    [SerializeField]
+    GameObject thingToSwitchTo;
+
     public GameObject currentControl;
 
     public static bool up;
@@ -20,15 +23,35 @@ public class KT_CharacterMovement : MonoBehaviour {
     public static bool left;
 
     // Use this for initialization
-    void Start () {
-        //currentControl = GameObject.FindGameObjectWithTag("Player");
+    void Start()
+    {
+        currentControl = GameObject.FindGameObjectWithTag("Player");
         down = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         CharacterMovement();
-	}
+
+        if (Input.GetButtonDown("Fire1") && currentControl == GameObject.FindGameObjectWithTag("Player"))
+        {
+            if (thingToSwitchTo.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
+            {
+                currentControl = thingToSwitchTo;
+                currentControl.GetComponent<Unit>().isControlled = true;
+            }
+        }
+        else if (Input.GetButtonDown("Fire1") && currentControl == thingToSwitchTo)
+        {
+            currentControl.GetComponent<Unit>().isControlled = false;
+            currentControl.GetComponent<Unit>().originalPosition = currentControl.transform.position;
+            currentControl.GetComponent<Unit>().section = 0;
+            currentControl.GetComponent<Unit>().closestDistance = Mathf.Infinity;
+            currentControl.GetComponent<Unit>().FindNearestWaypoint();
+            currentControl = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
 
     void CharacterMovement()
     {
@@ -40,7 +63,7 @@ public class KT_CharacterMovement : MonoBehaviour {
             right = false;
             down = false;
             left = false;
-            
+
         }
         if (Input.GetKey(KeyCode.A))
         {
