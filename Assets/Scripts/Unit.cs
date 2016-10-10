@@ -8,13 +8,6 @@ using System.Collections;
 
 public class Unit : MonoBehaviour {
 
-    public Waypoint[] waypoints;
-
-    [HideInInspector]
-    public int currentWaypoint = 0;
-
-    public float moveSpeed = 1.7f;
-
     public enum Faction {
         CONTROLLABLE,
         UNCONTROLLABLE,
@@ -22,9 +15,17 @@ public class Unit : MonoBehaviour {
 
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
+    public Waypoint[] waypoints;
+
+    [HideInInspector]
+    public int currentWaypoint = 0;
+
     public GameObject[] lookDirections;
 
+    public float moveSpeed = 1.7f;
+
     public Vector3 originalPosition;
+    [HideInInspector]
     public Vector3 oldPosition;
     Vector3 difference;
 
@@ -55,7 +56,7 @@ public class Unit : MonoBehaviour {
             {
                 LookUp();
             }
-            if (difference.normalized.x < 0.5f)
+            if (difference.normalized.x > 0.5f)
             {
                 LookRight();
             }
