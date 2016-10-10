@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour {
     [HideInInspector]
     public int currentWaypoint = 0;
 
-    public float moveSpeed = 0.7f;
+    public float moveSpeed = 1.7f;
 
     public enum Faction {
         CONTROLLABLE,
@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour {
 
     public Vector3 originalPosition;
     public Vector3 oldPosition;
+    Vector3 difference;
 
     float section;
 
@@ -36,7 +37,7 @@ public class Unit : MonoBehaviour {
 
     public void MoveTowardsWaypoint(Vector3 waypointPosition)
     {
-        section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * 1.7f;
+        section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;
 
         if(section > Vector3.Distance(originalPosition, waypointPosition))
         {
@@ -49,24 +50,25 @@ public class Unit : MonoBehaviour {
         }
         if(oldPosition != transform.position)
         {
-            Vector3 difference = transform.position - oldPosition;
-            if(difference.normalized == Vector3.up)
+            difference = transform.position - oldPosition;
+            if(difference.normalized.y > 0.5f)
             {
                 LookUp();
             }
-            if (difference.normalized == Vector3.right)
+            if (difference.normalized.x < 0.5f)
             {
                 LookRight();
             }
-            if (difference.normalized == -Vector3.up)
+            if (difference.normalized.y < -0.5f)
             {
                 LookDown();
             }
-            if (difference.normalized == -Vector3.right)
+            if (difference.normalized.x < -0.5f)
             {
                 LookLeft();
             }
         }
+        Debug.Log(difference.normalized);
         oldPosition = transform.position;
     }
 
@@ -94,6 +96,7 @@ public class Unit : MonoBehaviour {
             lookDirections[2].SetActive(false);
             lookDirections[3].SetActive(false);
         }
+        Debug.Log("looked Up");
     }
 
     public void LookRight()
