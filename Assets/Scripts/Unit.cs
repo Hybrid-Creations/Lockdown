@@ -107,6 +107,10 @@ public class Unit : MonoBehaviour {
             {
                 i++;
             }
+            if (i > waypoints.Length)
+            {
+                i--;
+            }
             originalPosition = transform.position;
             section = 0;
             return i;
@@ -168,6 +172,6 @@ public class Unit : MonoBehaviour {
                 currentWaypoint = i;
             }
         }
-            Debug.Log(currentWaypoint);
+        Debug.Log(currentWaypoint);
     }
 }

@@ -8,7 +8,7 @@ using System.Collections;
 
 public class ButtonManager : MonoBehaviour {
 
-public void Quit()
+    public void Quit()
     {
         Application.Quit();
     }

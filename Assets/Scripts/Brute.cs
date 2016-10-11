@@ -15,14 +15,15 @@ public class Brute : Unit {
     GameObject memes;
 
     // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    void Start()
     {
-        if(!isControlled)
-        MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isControlled)
+            MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
     }
 }
