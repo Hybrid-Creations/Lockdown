@@ -204,11 +204,11 @@ public class Unit : MonoBehaviour {
                 lightObj.gameObject.SetActive(true);
 
             if (pulseUp) {
-                pulseTimer += Time.deltaTime;
+                pulseTimer += Time.deltaTime * pulseSpeedMult;
             }
 
             if (!pulseUp) {
-                pulseTimer -= Time.deltaTime;
+                pulseTimer -= Time.deltaTime * pulseSpeedMult;
             }
                 lightObj.intensity = Mathf.Lerp(minIntensity, maxIntensity, pulseTimer);
 
