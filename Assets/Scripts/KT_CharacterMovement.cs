@@ -107,6 +107,8 @@ public class KT_CharacterMovement : MonoBehaviour
 
     void CharacterMovement()
     {
+
+
         if (Input.GetKey(KeyCode.W))
         {
             currentControl.transform.position += currentControl.transform.up * moveSpeed;
@@ -177,6 +179,9 @@ public class KT_CharacterMovement : MonoBehaviour
         else if(currentControl == player)
         {
             lightOn = false;
+        }
+        if (Input.GetButtonDown("Fire2")){
+            NewSelection(player);
         }
     }
 
