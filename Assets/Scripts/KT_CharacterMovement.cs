@@ -48,11 +48,14 @@ public class KT_CharacterMovement : MonoBehaviour
     void Update()
     {
         psyGlow = currentControl.GetComponent<Unit>().lightObj;
-        if (lightOn)
-            psyGlow.enabled = true;
-        else
+        if (currentControl == GameObject.FindGameObjectWithTag("Player"))
         {
-            psyGlow.enabled = false;
+            if (lightOn)
+                psyGlow.enabled = true;
+            else
+            {
+                psyGlow.enabled = false;
+            }
         }
 
         CharacterMovement();
@@ -147,7 +150,7 @@ public class KT_CharacterMovement : MonoBehaviour
                         currentControl = hit.collider.gameObject;
                         currentControl.GetComponent<Unit>().isControlled = true;
                         Debug.Log("player controlled");
-                        lightOn = false;      
+                        lightOn = true;      
                     }
                 }
             }

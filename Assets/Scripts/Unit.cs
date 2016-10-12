@@ -23,6 +23,14 @@ public class Unit : MonoBehaviour {
     [Header("Light")]
     public Light lightObj;
 
+     float pulseSpeedMult = 2;
+     float minIntensity = 0.5f;
+     float maxIntensity = 1.5f;
+    [HideInInspector]
+    public float pulseTimer;
+    [HideInInspector]
+    public bool pulseUp;
+
     [Header("Movement")]
     public Waypoint[] waypoints;
 
@@ -44,11 +52,6 @@ public class Unit : MonoBehaviour {
     [HideInInspector]
     public float section;
 
-    public float pulseSpeed = 2;
-    [HideInInspector]
-    public float pulseTimer;
-    [HideInInspector]
-    public bool pulseUp;
 
     void Start()
     {
@@ -193,21 +196,26 @@ public class Unit : MonoBehaviour {
         {
             if (lightObj.enabled == false)
                 lightObj.enabled = true;
+            if (lightObj.gameObject.activeInHierarchy == false)
+                lightObj.gameObject.SetActive(true);
+
             if (pulseUp) {
                 pulseTimer += Time.deltaTime;
-                lightObj.intensity += Time.deltaTime;
             }
 
             if (!pulseUp) {
                 pulseTimer -= Time.deltaTime;
-                lightObj.intensity += Time.deltaTime;
             }
+                lightObj.intensity = Mathf.Lerp(minIntensity, maxIntensity, pulseTimer);
 
-            if (pulseTimer < 0)
+            if (pulseTimer <= 0)
                 pulseUp = true;
-            if (pulseTimer > pulseSpeed)
+            if (pulseTimer >= 1)
                 pulseUp = false;
 
+            //Debug.Log(pulseTimer);
+            //Debug.Log(pulseUp);
+            //Debug.Log(Mathf.Lerp(minIntensity, maxIntensity, pulseTimer));
         }
     }
 }
