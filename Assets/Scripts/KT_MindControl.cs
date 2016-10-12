@@ -16,19 +16,26 @@ public class KT_MindControl : MonoBehaviour {
 
     [SerializeField]
     float distanceToTarget;
+<<<<<<< HEAD
 
     [SerializeField]
     float maxDist = 5;
 	// Use this for initialization
 	void Start () {
+=======
+    // Use this for initialization
+    void Start()
+    {
+>>>>>>> origin/master
         player = GameObject.FindGameObjectWithTag("Player");
         psyGlow = player.GetComponent<Light>();
         psyGlow.enabled = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     void CanControl()

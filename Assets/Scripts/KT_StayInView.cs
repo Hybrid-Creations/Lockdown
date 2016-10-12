@@ -9,10 +9,11 @@ using System.Collections;
 
 public class KT_StayInView : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
 
     void Update()
     {

@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour {
 
     public bool isControlled;
 
+    public bool randomWaypoints;
+
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
     public Waypoint[] waypoints;
@@ -81,17 +83,38 @@ public class Unit : MonoBehaviour {
 
     public int UpdateCurrentWaypoint()
     {
-        int i = currentWaypoint;
-
-        i++;
-
-        if (i >= waypoints.Length)
+        if (!randomWaypoints)
         {
-            i = 0;
+            int i = currentWaypoint;
+
+            i++;
+
+            if (i >= waypoints.Length)
+            {
+                i = 0;
+            }
+            originalPosition = transform.position;
+            section = 0;
+            return i;
         }
-        originalPosition = transform.position;
-        section = 0;
-        return i;
+        else
+        {
+            int l = currentWaypoint;
+
+            int i = Random.Range(0, waypoints.Length);
+
+            if (i == l)
+            {
+                i++;
+            }
+            if (i > waypoints.Length)
+            {
+                i--;
+            }
+            originalPosition = transform.position;
+            section = 0;
+            return i;
+        }
     }
 
     public void LookUp()
@@ -149,6 +172,6 @@ public class Unit : MonoBehaviour {
                 currentWaypoint = i;
             }
         }
-            Debug.Log(currentWaypoint);
+        Debug.Log(currentWaypoint);
     }
 }
