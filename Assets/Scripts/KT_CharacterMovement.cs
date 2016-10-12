@@ -135,6 +135,7 @@ public class KT_CharacterMovement : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponent<Unit>() != null)
             {
+                if (currentControl == GameObject.FindGameObjectWithTag("Player"))
                     lightOn = true;
                 if (hit.collider.gameObject.GetComponent<Unit>().isControlled == false && hit.collider.gameObject.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
                 {
@@ -150,9 +151,9 @@ public class KT_CharacterMovement : MonoBehaviour
                 }
             }
         }
-            else
-            {
-                lightOn = false;
-            }
+        else if(currentControl == GameObject.FindGameObjectWithTag("Player"))
+        {
+            lightOn = false;
+        }
     }
 }
