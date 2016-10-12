@@ -47,7 +47,7 @@ public class KT_CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        psyGlow = currentControl.GetComponent<Light>();
+        psyGlow = currentControl.GetComponent<Unit>().lightObj;
         if (lightOn)
             psyGlow.enabled = true;
         else
