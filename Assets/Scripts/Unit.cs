@@ -193,10 +193,12 @@ public class Unit : MonoBehaviour {
         {
             if (pulseUp) {
                 pulseTimer += Time.deltaTime;
+                lightObj.intensity += Time.deltaTime;
             }
 
             if (!pulseUp) {
                 pulseTimer -= Time.deltaTime;
+                lightObj.intensity += Time.deltaTime;
             }
 
             if (pulseTimer < 0)
