@@ -29,6 +29,6 @@ public class uiStatsManager : MonoBehaviour {
     void Update()
     {
         mindPowerSlider.value = currentMindPower;
-        valueText.text = currentMindPower.ToString();
+        valueText.text = currentMindPower.ToString("0");
     }
 }

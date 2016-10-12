@@ -29,11 +29,15 @@ public class KT_CharacterMovement : MonoBehaviour
 
     public GameObject currentControl;
 
+    [SerializeField]
+    float rechargeTimer;
+
     public static bool up;
     public static bool right;
     public static bool down;
     public static bool left;
     bool lightOn = false;
+    bool rechargePower = false;
 
     // Use this for initialization
     void Start()
@@ -48,7 +52,7 @@ public class KT_CharacterMovement : MonoBehaviour
     void Update()
     {
         psyGlow = currentControl.GetComponent<Unit>().lightObj;
-        if (currentControl == GameObject.FindGameObjectWithTag("Player"))
+        if (currentControl == player)
         {
             if (lightOn)
                 psyGlow.enabled = true;
@@ -58,26 +62,47 @@ public class KT_CharacterMovement : MonoBehaviour
             }
         }
 
+        MindPower();
         CharacterMovement();
         CanControl();
+    }
 
-        //if (Input.GetButtonDown("Fire1") && currentControl == GameObject.FindGameObjectWithTag("Player"))
-        //{
-        //    if (thingToSwitchTo.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
-        //    {
-        //        currentControl = thingToSwitchTo;
-        //        currentControl.GetComponent<Unit>().isControlled = true;
-        //    }
-        //}
-        //else if (Input.GetButtonDown("Fire1") && currentControl == thingToSwitchTo)
-        //{
-        //    currentControl.GetComponent<Unit>().isControlled = false;
-        //    currentControl.GetComponent<Unit>().originalPosition = currentControl.transform.position;
-        //    currentControl.GetComponent<Unit>().section = 0;
-        //    currentControl.GetComponent<Unit>().closestDistance = Mathf.Infinity;
-        //    currentControl.GetComponent<Unit>().FindNearestWaypoint();
-        //    currentControl = GameObject.FindGameObjectWithTag("Player");
-        //}
+    void MindPower()
+    {
+        float distancetoControl = Vector2.Distance(currentControl.transform.position, player.transform.position);
+        Mathf.Round(distancetoControl);
+
+        if (currentControl != player)
+        {
+            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 2;
+        }
+        else
+        {
+            if (FindObjectOfType<uiStatsManager>().currentMindPower < 100)
+            {
+                rechargePower = true;
+                if (rechargePower)
+                {
+                    rechargeTimer += Time.deltaTime;
+                    if (rechargeTimer >= 1)
+                    {
+                        FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * 10;
+                        if (FindObjectOfType<uiStatsManager>().currentMindPower >= 100)
+                        {
+                            FindObjectOfType<uiStatsManager>().currentMindPower = 100;
+                            rechargeTimer = 0;
+                            rechargePower = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(FindObjectOfType<uiStatsManager>().currentMindPower <= 0)
+        {
+            FindObjectOfType<uiStatsManager>().currentMindPower = 0;
+            NewSelection(player);
+        }
     }
 
     void CharacterMovement()
@@ -138,26 +163,43 @@ public class KT_CharacterMovement : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponent<Unit>() != null)
             {
-                if (currentControl == GameObject.FindGameObjectWithTag("Player"))
+                if (currentControl == player)
                     lightOn = true;
                 if (hit.collider.gameObject.GetComponent<Unit>().isControlled == false && hit.collider.gameObject.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
                 {
                     if (Input.GetButtonDown("Fire1"))
                     {
-                        currentControl.GetComponent<Unit>().isControlled = false;
-                        currentControl.GetComponent<Unit>().lightObj.enabled = false;
-                        currentControl.layer = 0;
-                        currentControl = hit.collider.gameObject;
-                        currentControl.GetComponent<Unit>().isControlled = true;
-                        Debug.Log("player controlled");
-                        lightOn = true;      
+                        NewSelection(hit.collider.gameObject);
                     }
                 }
             }
         }
-        else if(currentControl == GameObject.FindGameObjectWithTag("Player"))
+        else if(currentControl == player)
         {
             lightOn = false;
         }
+    }
+
+    void NewSelection(GameObject newObject)
+    {
+        currentControl.GetComponent<Unit>().originalPosition = currentControl.transform.position;
+        currentControl.GetComponent<Unit>().section = 0;
+        currentControl.GetComponent<Unit>().closestDistance = Mathf.Infinity;
+        currentControl.GetComponent<Unit>().FindNearestWaypoint();
+        currentControl.GetComponent<Unit>().isControlled = false;
+        currentControl.GetComponent<Unit>().lightObj.intensity = .5f;
+        if (currentControl != player)
+        {
+            currentControl.GetComponent<Unit>().lightObj.enabled = false;
+        }
+        currentControl.layer = 0;
+        currentControl = newObject;
+        if(currentControl == player)
+        {
+            player.GetComponent<Unit>().lightObj.intensity = 1.5f;
+        }
+        currentControl.GetComponent<Unit>().isControlled = true;
+        Debug.Log("player controlled");
+        lightOn = true;
     }
 }
