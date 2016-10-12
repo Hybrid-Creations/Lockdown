@@ -19,6 +19,11 @@ public class Unit : MonoBehaviour {
 
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
+
+    [Header("Light")]
+    public Light lightObj;
+
+    [Header("Movement")]
     public Waypoint[] waypoints;
 
     [HideInInspector]
@@ -28,6 +33,7 @@ public class Unit : MonoBehaviour {
 
     public float moveSpeed = 1.7f;
 
+    [HideInInspector]
     public Vector3 originalPosition;
     [HideInInspector]
     public Vector3 oldPosition;
@@ -37,6 +43,12 @@ public class Unit : MonoBehaviour {
     public float closestDistance;
     [HideInInspector]
     public float section;
+
+    public float pulseSpeed = 2;
+    [HideInInspector]
+    public float pulseTimer;
+    [HideInInspector]
+    public bool pulseUp;
 
     void Start()
     {
@@ -107,9 +119,9 @@ public class Unit : MonoBehaviour {
             {
                 i++;
             }
-            if (i > waypoints.Length)
+            if (i >= waypoints.Length)
             {
-                i--;
+                i=0;
             }
             originalPosition = transform.position;
             section = 0;
@@ -173,5 +185,25 @@ public class Unit : MonoBehaviour {
             }
         }
         Debug.Log(currentWaypoint);
+    }
+
+    public void PulseLight()
+    {
+        if (isControlled)
+        {
+            if (pulseUp) {
+                pulseTimer += Time.deltaTime;
+            }
+
+            if (!pulseUp) {
+                pulseTimer -= Time.deltaTime;
+            }
+
+            if (pulseTimer < 0)
+                pulseUp = true;
+            if (pulseTimer > pulseSpeed)
+                pulseUp = false;
+
+        }
     }
 }

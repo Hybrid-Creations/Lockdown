@@ -30,5 +30,7 @@ public class LabTech : Unit {
     {
         if (!isControlled)
             MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+        if (isControlled)
+            PulseLight();
     }
 }
