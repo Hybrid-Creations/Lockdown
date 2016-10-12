@@ -40,7 +40,7 @@ public class KT_CharacterMovement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentControl = GameObject.FindGameObjectWithTag("Player");
-        currentControl.GetComponent<Light>().enabled = false;
+        currentControl.GetComponent<Unit>().lightObj.enabled = false;
         down = true;
     }
 
