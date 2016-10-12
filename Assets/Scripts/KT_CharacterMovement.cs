@@ -142,11 +142,12 @@ public class KT_CharacterMovement : MonoBehaviour
                     if (Input.GetButtonDown("Fire1"))
                     {
                         currentControl.GetComponent<Unit>().isControlled = false;
+                        currentControl.GetComponent<Unit>().lightObj.enabled = false;
                         currentControl.layer = 0;
                         currentControl = hit.collider.gameObject;
                         currentControl.GetComponent<Unit>().isControlled = true;
                         Debug.Log("player controlled");
-                        //lightOn = false;      
+                        lightOn = false;      
                     }
                 }
             }

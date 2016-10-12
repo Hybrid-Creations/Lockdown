@@ -191,6 +191,8 @@ public class Unit : MonoBehaviour {
     {
         if (isControlled)
         {
+            if (lightObj.enabled == false)
+                lightObj.enabled = true;
             if (pulseUp) {
                 pulseTimer += Time.deltaTime;
                 lightObj.intensity += Time.deltaTime;
