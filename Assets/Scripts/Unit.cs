@@ -71,6 +71,10 @@ public class Unit : MonoBehaviour {
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
+        if (Vector3.Distance(originalPosition, waypointPosition) < 1)
+        {
+            currentWaypoint = UpdateCurrentWaypoint();
+        }
 
         if (oldPosition != transform.position)
         {
