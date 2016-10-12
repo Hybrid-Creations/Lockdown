@@ -63,8 +63,11 @@ public class KT_CharacterMovement : MonoBehaviour
         }
 
         MindPower();
-        CharacterMovement();
-        CanControl();
+        if (!uiStatsManager.isPaused)
+        {
+            CharacterMovement();
+            CanControl();
+        }
     }
 
     void MindPower()
@@ -109,44 +112,45 @@ public class KT_CharacterMovement : MonoBehaviour
     {
 
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            currentControl.transform.position += currentControl.transform.up * moveSpeed;
+            if (Input.GetKey(KeyCode.W))
+            {
+                currentControl.transform.position += currentControl.transform.up * moveSpeed;
 
-            up = true;
-            right = false;
-            down = false;
-            left = false;
+                up = true;
+                right = false;
+                down = false;
+                left = false;
 
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            currentControl.transform.position += -currentControl.transform.right * moveSpeed;
-            up = false;
-            right = false;
-            down = false;
-            left = true;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            currentControl.transform.position += currentControl.transform.right * moveSpeed;
-            up = false;
-            right = true;
-            down = false;
-            left = false;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            currentControl.transform.position += -currentControl.transform.up * moveSpeed;
-            up = false;
-            right = false;
-            down = true;
-            left = false;
-        }
-        currentControl.GetComponent<Unit>().lookDirections[0].gameObject.SetActive(up);
-        currentControl.GetComponent<Unit>().lookDirections[1].gameObject.SetActive(right);
-        currentControl.GetComponent<Unit>().lookDirections[2].gameObject.SetActive(down);
-        currentControl.GetComponent<Unit>().lookDirections[3].gameObject.SetActive(left);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                currentControl.transform.position += -currentControl.transform.right * moveSpeed;
+                up = false;
+                right = false;
+                down = false;
+                left = true;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                currentControl.transform.position += currentControl.transform.right * moveSpeed;
+                up = false;
+                right = true;
+                down = false;
+                left = false;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                currentControl.transform.position += -currentControl.transform.up * moveSpeed;
+                up = false;
+                right = false;
+                down = true;
+                left = false;
+            }
+            currentControl.GetComponent<Unit>().lookDirections[0].gameObject.SetActive(up);
+            currentControl.GetComponent<Unit>().lookDirections[1].gameObject.SetActive(right);
+            currentControl.GetComponent<Unit>().lookDirections[2].gameObject.SetActive(down);
+            currentControl.GetComponent<Unit>().lookDirections[3].gameObject.SetActive(left);
+        
     }
 
     void CanControl()
@@ -175,10 +179,10 @@ public class KT_CharacterMovement : MonoBehaviour
                     }
                 }
             }
-        }
         else if(currentControl == player)
         {
             lightOn = false;
+        }
         }
         if (Input.GetButtonDown("Fire2")){
             NewSelection(player);
