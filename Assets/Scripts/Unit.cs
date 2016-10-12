@@ -13,9 +13,16 @@ public class Unit : MonoBehaviour {
         UNCONTROLLABLE,
     }
 
+    public enum AIMode {
+        RELAXED,
+        ALERT
+    }
+
     public bool isControlled;
 
     public bool randomWaypoints;
+
+    public AIMode currentAIMode = AIMode.RELAXED;
 
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
@@ -220,6 +227,20 @@ public class Unit : MonoBehaviour {
             //Debug.Log(pulseTimer);
             //Debug.Log(pulseUp);
             //Debug.Log(Mathf.Lerp(minIntensity, maxIntensity, pulseTimer));
+        }
+    }
+
+    public void UpdateAI()
+    {
+        if (!isControlled)
+        {
+            Vector2 playerPos = transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
+            float angle = Vector2.Angle(playerPos, -difference.normalized);
+
+            if(angle < 45)
+            {
+                Debug.Log("I CAN SEE YOU");
+            }
         }
     }
 }

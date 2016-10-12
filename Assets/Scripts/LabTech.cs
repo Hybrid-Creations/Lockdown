@@ -32,5 +32,6 @@ public class LabTech : Unit {
             MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
         if (isControlled)
             PulseLight();
+        UpdateAI();
     }
 }
