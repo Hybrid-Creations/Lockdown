@@ -36,9 +36,12 @@ public class uiStatsManager : MonoBehaviour {
         currentMindPower = maxMindPower;
         mindPowerSlider.value = maxMindPower;
 
-        caughtSlider.maxValue = maxcaughtValue;
-        caughtSlider.minValue = 0;
-        caughtSlider.value = currentCaughtValue;
+        if (caughtSlider)
+        {
+            caughtSlider.maxValue = maxcaughtValue;
+            caughtSlider.minValue = 0;
+            caughtSlider.value = currentCaughtValue;
+        }
     }
 
     void Update()
