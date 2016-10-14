@@ -102,6 +102,9 @@ public class uiStatsManager : MonoBehaviour {
                 caughtText.gameObject.SetActive(false);
                 caughtSlider.gameObject.SetActive(false);
             }
+
+            if (currentCaughtValue < 0)
+                currentCaughtValue = 0;
         }
     }
 }

@@ -275,22 +275,12 @@ public class Unit : MonoBehaviour {
                     Debug.Log("MEMES????");
                     currentAIMode = AIMode.ALERT;
 
-                    //Vector3 towardsPlayer = playerPos.position - sightRangeObject.transform.position;
-
-                    //if (currentAIMode == AIMode.ALERT)
-                    //{
                     Debug.Log("I CAN SEE YOU");
-                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 8.5f) / distance;
+                    FindObjectOfType<uiStatsManager>().currentCaughtValue += Time.deltaTime; //(Time.deltaTime * 8.5f) / distance;
                     FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
 
-                    float angleT = Mathf.Atan2(lookThisWay.y, lookThisWay.x) * Mathf.Rad2Deg;
-                    Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
-                    sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 4f);
-
-                    //Debug.Log(angleT);
-                    //}
                 }
-                else
+                else if(currentAIMode == AIMode.ALERT)
                 {
                     FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
                 }
@@ -301,7 +291,13 @@ public class Unit : MonoBehaviour {
                 currentAIMode = AIMode.RELAXED;
             }
 
-            if (currentAIMode == AIMode.RELAXED)
+            if (currentAIMode == AIMode.ALERT)
+            {
+                float angleT = Mathf.Atan2(-lookThisWay.y, -lookThisWay.x) * Mathf.Rad2Deg;
+                Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
+                sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 4f);
+            }
+            else if (currentAIMode == AIMode.RELAXED)
             {
                 float angleT = Mathf.Atan2(-difference.y, -difference.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
