@@ -6,21 +6,23 @@ public class KT_FinalPanel : MonoBehaviour {
     [SerializeField]
     GameObject finalDoor;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if(other.tag == "Enemy" && Input.GetMouseButtonDown(0))
+        if (other.tag == "Enemy" && Input.GetMouseButtonDown(0))
         {
             finalDoor.SetActive(false);
-        }      
+        }
     }
 }

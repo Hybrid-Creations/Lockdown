@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KT_LockedRoom : MonoBehaviour
-{
+public class KT_LockedRoom : MonoBehaviour {
 
     [SerializeField]
     GameObject door;
 
-    public enum ColorDoor
-    {
+    public enum ColorDoor {
         RED,
         YELLOW,
         BLUE,

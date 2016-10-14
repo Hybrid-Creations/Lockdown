@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KT_Room : MonoBehaviour
-{
+public class KT_Room : MonoBehaviour {
 
     [SerializeField]
     GameObject door;
@@ -10,8 +9,7 @@ public class KT_Room : MonoBehaviour
     public Waypoint wayPointIn;
     public Waypoint wayPointOut;
 
-    public enum ColorDoor
-    {
+    public enum ColorDoor {
         RED,
         YELLOW,
         BLUE,

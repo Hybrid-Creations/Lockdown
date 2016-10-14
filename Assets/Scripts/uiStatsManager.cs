@@ -81,7 +81,7 @@ public class uiStatsManager : MonoBehaviour {
                 screenPlacement.y += 95;
                 caughtSlider.gameObject.transform.position = screenPlacement;
             }
-            if(currentCaughtValue >= maxcaughtValue)
+            if (currentCaughtValue >= maxcaughtValue)
             {
                 currentCaughtValue = maxcaughtValue;
                 //caughtText.text = "Caught!";
@@ -90,12 +90,12 @@ public class uiStatsManager : MonoBehaviour {
                 restartTimer += Time.deltaTime;
                 isPaused = true;
 
-                if(restartTimer > 2)
+                if (restartTimer > 2)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
-            else if(currentCaughtValue <= 0)
+            else if (currentCaughtValue <= 0)
             {
                 caughtText.gameObject.SetActive(false);
                 caughtSlider.gameObject.SetActive(false);

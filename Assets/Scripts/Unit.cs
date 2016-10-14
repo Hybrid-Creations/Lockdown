@@ -268,7 +268,7 @@ public class Unit : MonoBehaviour {
                 currentAIMode = AIMode.RELAXED;
             }
 
-            if(currentAIMode == AIMode.ALERT)
+            if (currentAIMode == AIMode.ALERT)
             {
                 float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
