@@ -6,6 +6,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class uiStatsManager : MonoBehaviour {
 
@@ -15,6 +16,9 @@ public class uiStatsManager : MonoBehaviour {
     Slider caughtSlider;
     [SerializeField]
     Text valueText;
+
+    [SerializeField]
+    Text caughtText;
 
     Vector2 screenPlacement;
 
@@ -28,6 +32,8 @@ public class uiStatsManager : MonoBehaviour {
     public float maxcaughtValue;
 
     public static bool isPaused = false;
+
+    float restartTimer;
 
     void Start()
     {
@@ -62,15 +68,33 @@ public class uiStatsManager : MonoBehaviour {
 
         if (guardWhoCanSee)
         {
-            currentCaughtValue += Time.deltaTime;
+            //currentCaughtValue += Time.deltaTime;
 
             caughtSlider.value = currentCaughtValue;
 
             if (currentCaughtValue > 0.1f)
             {
+                caughtSlider.gameObject.SetActive(true);
                 screenPlacement = Camera.main.WorldToScreenPoint(guardWhoCanSee.transform.position);
                 screenPlacement.y += 95;
                 caughtSlider.gameObject.transform.position = screenPlacement;
+            }
+            if(currentCaughtValue >= maxcaughtValue)
+            {
+                currentCaughtValue = maxcaughtValue;
+                caughtText.text = "Caught!";
+                Debug.Log("Caught!");
+                caughtText.gameObject.SetActive(true);
+                restartTimer += Time.deltaTime;
+
+                if(restartTimer > 2)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+            }
+            else if(currentCaughtValue <= 0)
+            {
+                caughtSlider.gameObject.SetActive(false);
             }
         }
     }

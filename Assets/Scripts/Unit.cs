@@ -26,13 +26,12 @@ public class Unit : MonoBehaviour {
 
     public Faction currentFaction = Faction.UNCONTROLLABLE;
 
-
     [Header("Light")]
     public Light lightObj;
 
-     float pulseSpeedMult = 2;
-     float minIntensity = 0.5f;
-     float maxIntensity = 1.5f;
+    float pulseSpeedMult = 2;
+    float minIntensity = 0.5f;
+    float maxIntensity = 1.5f;
     [HideInInspector]
     public float pulseTimer;
     [HideInInspector]
@@ -59,10 +58,19 @@ public class Unit : MonoBehaviour {
     [HideInInspector]
     public float section;
 
+    [Header("AI Values")]
+    public float sightAngle = 20;
+    public float sightRange = 3.5f;
+
+    public GameObject sightRangeObject;
+
+    Transform playerPos;
+
 
     void Start()
     {
         originalPosition = transform.position;
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void MoveTowardsWaypoint(Vector3 waypointPosition)
@@ -135,7 +143,7 @@ public class Unit : MonoBehaviour {
             }
             if (i >= waypoints.Length)
             {
-                i=0;
+                i = 0;
             }
             originalPosition = transform.position;
             section = 0;
@@ -217,7 +225,7 @@ public class Unit : MonoBehaviour {
             if (!pulseUp) {
                 pulseTimer -= Time.deltaTime * pulseSpeedMult;
             }
-                lightObj.intensity = Mathf.Lerp(minIntensity, maxIntensity, pulseTimer);
+            lightObj.intensity = Mathf.Lerp(minIntensity, maxIntensity, pulseTimer);
 
             if (pulseTimer <= 0)
                 pulseUp = true;
@@ -234,12 +242,34 @@ public class Unit : MonoBehaviour {
     {
         if (!isControlled)
         {
-            Vector2 playerPos = transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
-            float angle = Vector2.Angle(playerPos, -difference.normalized);
+            if (!playerPos)
+                playerPos = GameObject.FindGameObjectWithTag("Player").transform;
 
-            if(angle < 45)
+            Vector2 towardsPlayer = sightRangeObject.transform.position - playerPos.position;
+            float angle = Vector2.Angle(towardsPlayer, sightRangeObject.transform.right);
+
+            if (angle < sightAngle && Vector2.Distance(sightRangeObject.transform.position, playerPos.position) < sightRange)
             {
+                currentAIMode = AIMode.ALERT;
                 Debug.Log("I CAN SEE YOU");
+                FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 7) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
+                FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+            }
+            else
+            {
+                FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime * 0.75f;
+            }
+
+            if(FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
+            {
+                currentAIMode = AIMode.RELAXED;
+            }
+
+            if (currentAIMode == AIMode.ALERT)
+            {
+                float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
+                Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
+                sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 2.5f);
             }
         }
     }

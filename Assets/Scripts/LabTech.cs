@@ -28,10 +28,11 @@ public class LabTech : Unit {
     // Update is called once per frame
     void Update()
     {
-        if (!isControlled)
+        if (!isControlled && currentAIMode != AIMode.ALERT)
             MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
         if (isControlled)
             PulseLight();
+
         UpdateAI();
     }
 }
