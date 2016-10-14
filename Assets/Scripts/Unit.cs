@@ -248,50 +248,109 @@ public class Unit : MonoBehaviour {
             if (!playerPos)
                 playerPos = GameObject.FindGameObjectWithTag("Player").transform;
 
-            Vector2 towardsPlayer = sightRangeObject.transform.position - playerPos.position;
-            float angle = Vector2.Angle(towardsPlayer, sightRangeObject.transform.right);
-
-            if (Vector2.Distance(sightRangeObject.transform.position, playerPos.position) < sightRange)
+            if (DotTest(playerPos))
             {
-                if (angle < sightAngle)
-                {
-                    currentAIMode = AIMode.ALERT;
-                    Debug.Log("I CAN SEE YOU");
-                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 8.5f) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
-                    FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
-                }
-            }
-            else
-            {
-                FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime * 0.75f;
+                currentAIMode = AIMode.ALERT;
             }
 
-            if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
-            {
-                currentAIMode = AIMode.RELAXED;
-            }
+
+            Vector3 towardsPlayer = playerPos.position - sightRangeObject.transform.position;
 
             if (currentAIMode == AIMode.ALERT)
             {
+                Debug.Log("I CAN SEE YOU");
+                FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 8.5f) / towardsPlayer.magnitude;
+                FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+
                 float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
                 sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 4f);
 
                 //Debug.Log(angleT);
-
-                //if(angleT )
             }
-
-            if (currentAIMode == AIMode.RELAXED)
+            else if (currentAIMode == AIMode.RELAXED)
             {
                 float angleT = Mathf.Atan2(-difference.y, -difference.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
                 sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 10);
             }
+            if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
+            {
+                currentAIMode = AIMode.RELAXED;
+            }
+
+            #region OLD CODE
+
+            //Vector2 towardsPlayer = sightRangeObject.transform.position - playerPos.position;
+            //float angle = Vector2.Angle(towardsPlayer, sightRangeObject.transform.right);
+
+            //if (Vector2.Distance(sightRangeObject.transform.position, playerPos.position) < sightRange)
+            //{
+            //    if (angle < sightAngle)
+            //    {
+            //        currentAIMode = AIMode.ALERT;
+            //        Debug.Log("I CAN SEE YOU");
+            //        FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 8.5f) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
+            //        FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+            //    }
+            //}
+            //else
+            //{
+            //    FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime * 0.75f;
+            //}
+
+            //if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
+            //{
+            //    currentAIMode = AIMode.RELAXED;
+            //}
+
+            //if (currentAIMode == AIMode.ALERT)
+            //{
+            //    float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
+            //    Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
+            //    sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 4f);
+
+            //    //Debug.Log(angleT);
+
+            //    //if(angleT )
+            //}
+
+            //if (currentAIMode == AIMode.RELAXED)
+            //{
+            //    float angleT = Mathf.Atan2(-difference.y, -difference.x) * Mathf.Rad2Deg;
+            //    Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
+            //    sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 10);
+            //}
+
+            #endregion
         }
         else if (isControlled)
         {
             sightRangeObject.SetActive(false);
+        }
+    }
+
+    bool DotTest(Transform lookingForThis)
+    {
+        Vector3 lookThisWay = lookingForThis.position - sightRangeObject.transform.position;
+        Vector3 toMe = sightRangeObject.transform.position - lookingForThis.position;
+        float distance = lookThisWay.magnitude;
+
+        float dotForwardResult = Vector2.Dot(lookThisWay.normalized, -sightRangeObject.transform.right);
+        float angle = Mathf.Acos(dotForwardResult);
+        angle = Mathf.Rad2Deg * angle;
+
+        //Debug.Log(angle);
+        //Debug.Log(dotForwardResult);
+
+        if(angle < sightAngle && lookThisWay.magnitude < sightRange)
+        {
+            Debug.Log("MEMES????");
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
