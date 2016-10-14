@@ -50,6 +50,8 @@ public class uiStatsManager : MonoBehaviour {
             caughtSlider.value = currentCaughtValue;
             caughtSlider.gameObject.SetActive(false);
         }
+        if (caughtText)
+            caughtText.gameObject.SetActive(false);
     }
 
     void Update()
