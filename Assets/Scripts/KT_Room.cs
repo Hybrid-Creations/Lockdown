@@ -34,50 +34,56 @@ public class KT_Room : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (myDoor == ColorDoor.RED)
+        if (other.gameObject.GetComponent<LabTech>())
         {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+            if (myDoor == ColorDoor.RED)
             {
-                door.SetActive(false);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+                {
+                    door.SetActive(false);
+                }
             }
-        }
-        if (myDoor == ColorDoor.BLUE)
-        {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.BLUE)
+            if (myDoor == ColorDoor.BLUE)
             {
-                door.SetActive(false);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.BLUE)
+                {
+                    door.SetActive(false);
+                }
             }
-        }
-        if (myDoor == ColorDoor.YELLOW)
-        {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.YELLOW)
+            if (myDoor == ColorDoor.YELLOW)
             {
-                door.SetActive(false);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.YELLOW)
+                {
+                    door.SetActive(false);
+                }
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (myDoor == ColorDoor.RED)
+        if (other.gameObject.GetComponent<LabTech>())
         {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+            if (myDoor == ColorDoor.RED)
             {
-                door.SetActive(true);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+                {
+                    door.SetActive(true);
+                }
             }
-        }
-        if (myDoor == ColorDoor.BLUE)
-        {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.BLUE)
+            if (myDoor == ColorDoor.BLUE)
             {
-                door.SetActive(true);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.BLUE)
+                {
+                    door.SetActive(true);
+                }
             }
-        }
-        if (myDoor == ColorDoor.YELLOW)
-        {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.YELLOW)
+            if (myDoor == ColorDoor.YELLOW)
             {
-                door.SetActive(true);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.YELLOW)
+                {
+                    door.SetActive(true);
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ public class uiStatsManager : MonoBehaviour {
     Text valueText;
 
     [SerializeField]
-    Text caughtText;
+    GameObject caughtText;
 
     Vector2 screenPlacement;
 
@@ -41,12 +41,14 @@ public class uiStatsManager : MonoBehaviour {
         mindPowerSlider.minValue = 0;
         currentMindPower = maxMindPower;
         mindPowerSlider.value = maxMindPower;
+        isPaused = false;
 
         if (caughtSlider)
         {
             caughtSlider.maxValue = maxcaughtValue;
             caughtSlider.minValue = 0;
             caughtSlider.value = currentCaughtValue;
+            caughtSlider.gameObject.SetActive(false);
         }
     }
 
@@ -82,10 +84,11 @@ public class uiStatsManager : MonoBehaviour {
             if(currentCaughtValue >= maxcaughtValue)
             {
                 currentCaughtValue = maxcaughtValue;
-                caughtText.text = "Caught!";
+                //caughtText.text = "Caught!";
                 Debug.Log("Caught!");
                 caughtText.gameObject.SetActive(true);
                 restartTimer += Time.deltaTime;
+                isPaused = true;
 
                 if(restartTimer > 2)
                 {
@@ -94,6 +97,7 @@ public class uiStatsManager : MonoBehaviour {
             }
             else if(currentCaughtValue <= 0)
             {
+                caughtText.gameObject.SetActive(false);
                 caughtSlider.gameObject.SetActive(false);
             }
         }

@@ -59,7 +59,7 @@ public class Unit : MonoBehaviour {
     public float section;
 
     [Header("AI Values")]
-    public float sightAngle = 20;
+    public float sightAngle = 23;
     public float sightRange = 3.5f;
 
     public GameObject sightRangeObject;
@@ -218,11 +218,13 @@ public class Unit : MonoBehaviour {
             if (lightObj.gameObject.activeInHierarchy == false)
                 lightObj.gameObject.SetActive(true);
 
-            if (pulseUp) {
+            if (pulseUp)
+            {
                 pulseTimer += Time.deltaTime * pulseSpeedMult;
             }
 
-            if (!pulseUp) {
+            if (!pulseUp)
+            {
                 pulseTimer -= Time.deltaTime * pulseSpeedMult;
             }
             lightObj.intensity = Mathf.Lerp(minIntensity, maxIntensity, pulseTimer);
@@ -242,6 +244,7 @@ public class Unit : MonoBehaviour {
     {
         if (!isControlled)
         {
+            sightRangeObject.SetActive(true);
             if (!playerPos)
                 playerPos = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -260,17 +263,32 @@ public class Unit : MonoBehaviour {
                 FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime * 0.75f;
             }
 
-            if(FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
+            if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
             {
                 currentAIMode = AIMode.RELAXED;
             }
 
-            if (currentAIMode == AIMode.ALERT)
+            if(currentAIMode == AIMode.ALERT)
             {
                 float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
                 sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 2.5f);
+
+                //Debug.Log(angleT);
+
+                //if(angleT )
             }
+
+            if (currentAIMode == AIMode.RELAXED)
+            {
+                float angleT = Mathf.Atan2(-difference.y, -difference.x) * Mathf.Rad2Deg;
+                Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
+                sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 10);
+            }
+        }
+        else if (isControlled)
+        {
+            sightRangeObject.SetActive(false);
         }
     }
 }
