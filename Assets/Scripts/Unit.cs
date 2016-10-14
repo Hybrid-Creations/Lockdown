@@ -60,7 +60,7 @@ public class Unit : MonoBehaviour {
 
     [Header("AI Values")]
     public float sightAngle = 23;
-    public float sightRange = 3.5f;
+    public float sightRange = 3.7f;
 
     public GameObject sightRangeObject;
 
@@ -251,12 +251,15 @@ public class Unit : MonoBehaviour {
             Vector2 towardsPlayer = sightRangeObject.transform.position - playerPos.position;
             float angle = Vector2.Angle(towardsPlayer, sightRangeObject.transform.right);
 
-            if (angle < sightAngle && Vector2.Distance(sightRangeObject.transform.position, playerPos.position) < sightRange)
+            if (Vector2.Distance(sightRangeObject.transform.position, playerPos.position) < sightRange)
             {
-                currentAIMode = AIMode.ALERT;
-                Debug.Log("I CAN SEE YOU");
-                FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 7) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
-                FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+                if (angle < sightAngle)
+                {
+                    currentAIMode = AIMode.ALERT;
+                    Debug.Log("I CAN SEE YOU");
+                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 7) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
+                    FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+                }
             }
             else
             {
