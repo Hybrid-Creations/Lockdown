@@ -81,12 +81,14 @@ public class Unit : MonoBehaviour {
         {
             section = 0;
         }
+        //The actual movement
         transform.position = Vector3.Lerp(originalPosition, waypointPosition, section);
+
         if (Vector3.Distance(transform.position, waypointPosition) <= 0.05f)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        if (Vector3.Distance(originalPosition, waypointPosition) < 1)
+        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.9f)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
@@ -117,21 +119,8 @@ public class Unit : MonoBehaviour {
 
     public int UpdateCurrentWaypoint()
     {
-        if (!randomWaypoints)
-        {
-            int i = currentWaypoint;
-
-            i++;
-
-            if (i >= waypoints.Length)
-            {
-                i = 0;
-            }
-            originalPosition = transform.position;
-            section = 0;
-            return i;
-        }
-        else
+        Debug.Log(waypoints.Length);
+        if (randomWaypoints)
         {
             int l = currentWaypoint;
 
@@ -145,6 +134,23 @@ public class Unit : MonoBehaviour {
             {
                 i = 0;
             }
+
+            originalPosition = transform.position;
+            section = 0;
+            return i;
+
+        }
+        else
+        {
+            int i = currentWaypoint;
+
+            i++;
+
+            if (i >= waypoints.Length)
+            {
+                i = 0;
+            }
+
             originalPosition = transform.position;
             section = 0;
             return i;
