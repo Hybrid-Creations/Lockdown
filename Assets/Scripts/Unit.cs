@@ -59,7 +59,7 @@ public class Unit : MonoBehaviour {
     public float section;
 
     [Header("AI Values")]
-    public float sightAngle = 23;
+    public float sightAngle = 30;
     public float sightRange = 3.7f;
 
     public GameObject sightRangeObject;
@@ -257,7 +257,7 @@ public class Unit : MonoBehaviour {
                 {
                     currentAIMode = AIMode.ALERT;
                     Debug.Log("I CAN SEE YOU");
-                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 7) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
+                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 8.5f) / Vector2.Distance(sightRangeObject.transform.position, playerPos.position);
                     FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
                 }
             }
@@ -275,7 +275,7 @@ public class Unit : MonoBehaviour {
             {
                 float angleT = Mathf.Atan2(towardsPlayer.y, towardsPlayer.x) * Mathf.Rad2Deg;
                 Quaternion q = Quaternion.AngleAxis(angleT, sightRangeObject.transform.forward);
-                sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 2.5f);
+                sightRangeObject.transform.rotation = Quaternion.Slerp(sightRangeObject.transform.rotation, q, Time.deltaTime * 4f);
 
                 //Debug.Log(angleT);
 

@@ -8,9 +8,27 @@ using System.Collections;
 
 public class ButtonManager : MonoBehaviour {
 
+    [SerializeField]
+    GameObject controls;
+
+    void Start()
+    {
+        controls.SetActive(false);
+    }
+
+
     public void Quit()
     {
         Application.Quit();
     }
-    //Dank Memes
+    
+    public void ToggleControles()
+    {
+        controls.SetActive(!controls.activeInHierarchy);
+        uiStatsManager.isPaused = !uiStatsManager.isPaused;
+        if (uiStatsManager.isPaused)
+            Time.timeScale = 0;
+        if (!uiStatsManager.isPaused)
+            Time.timeScale = 1;
+    }
 }
