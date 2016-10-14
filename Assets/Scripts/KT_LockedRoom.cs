@@ -29,14 +29,16 @@ public class KT_LockedRoom : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (myDoor == ColorDoor.GRAY && KT_GetKey.hasKey)
+        if (other.gameObject.GetComponent<LabTech>())
         {
-            if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+            if (myDoor == ColorDoor.GRAY && KT_GetKey.hasKey)
             {
-                door.SetActive(false);
+                if (other.gameObject.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+                {
+                    door.SetActive(false);
+                }
             }
         }
-
     }
 
     //void OnTriggerExit2D(Collider2D other)
