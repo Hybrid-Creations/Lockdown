@@ -6,23 +6,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class ButtonManager : MonoBehaviour {
+public class ButtonManager : MonoBehaviour
+{
 
     [SerializeField]
     GameObject controls;
 
-    void Start()
+    void Start ()
     {
         controls.SetActive(false);
     }
 
 
-    public void Quit()
+    public void Quit ()
     {
         Application.Quit();
     }
-    
-    public void ToggleControles()
+
+    public void ToggleControles ()
     {
         controls.SetActive(!controls.activeInHierarchy);
         uiStatsManager.isPaused = !uiStatsManager.isPaused;

@@ -6,7 +6,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class Brute : Unit {
+public class Brute : Unit
+{
     [Header("")]
     //leave this please
 
@@ -14,14 +15,7 @@ public class Brute : Unit {
     [SerializeField]
     GameObject memes;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
+    void Update ()
     {
         if (!isControlled)
             MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);

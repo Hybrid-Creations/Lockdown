@@ -7,7 +7,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class KT_CharacterMovement : MonoBehaviour {
+public class KT_CharacterMovement : MonoBehaviour
+{
     [SerializeField]
     Light psyGlow;
 
@@ -31,15 +32,15 @@ public class KT_CharacterMovement : MonoBehaviour {
     [SerializeField]
     float rechargeTimer;
 
-    public static bool up;
-    public static bool right;
-    public static bool down;
-    public static bool left;
+    static bool up;
+    static bool right;
+    static bool down;
+    static bool left;
     bool lightOn = false;
     bool rechargePower = false;
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentControl = GameObject.FindGameObjectWithTag("Player");
@@ -48,7 +49,7 @@ public class KT_CharacterMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         psyGlow = currentControl.GetComponent<Unit>().lightObj;
         if (currentControl == player)
@@ -69,7 +70,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
     }
 
-    void MindPower()
+    void MindPower ()
     {
         float distancetoControl = Vector2.Distance(currentControl.transform.position, player.transform.position);
         Mathf.Round(distancetoControl);
@@ -107,7 +108,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
     }
 
-    void CharacterMovement()
+    void CharacterMovement ()
     {
 
 
@@ -152,7 +153,7 @@ public class KT_CharacterMovement : MonoBehaviour {
 
     }
 
-    void CanControl()
+    void CanControl ()
     {
         Vector2 drawDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - currentControl.transform.position);
         currentControl.layer = 2;
@@ -160,7 +161,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         {
 
             RaycastHit2D hit;
-            //Ray2D inSight = new Ray2D(transform.position, Vector2.right);
+
             hit = Physics2D.Raycast(currentControl.transform.position, drawDirection, maxDist);
             Debug.DrawRay(currentControl.transform.position, drawDirection, Color.magenta);
             //if (hit.collider != null && (hit.collider.GetComponent<Unit>().currentFaction != Unit.Faction.CONTROLLABLE || hit.collider.GetComponent<Unit>().currentFaction != Unit.Faction.UNCONTROLLABLE))
@@ -189,7 +190,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
     }
 
-    void NewSelection(GameObject newObject)
+    void NewSelection (GameObject newObject)
     {
         currentControl.GetComponent<Unit>().originalPosition = currentControl.transform.position;
         currentControl.GetComponent<Unit>().section = 0;

@@ -8,7 +8,8 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class uiStatsManager : MonoBehaviour {
+public class uiStatsManager : MonoBehaviour
+{
 
     [SerializeField]
     Slider mindPowerSlider;
@@ -35,7 +36,7 @@ public class uiStatsManager : MonoBehaviour {
 
     float restartTimer;
 
-    void Start()
+    void Start ()
     {
         mindPowerSlider.maxValue = maxMindPower;
         mindPowerSlider.minValue = 0;
@@ -54,7 +55,7 @@ public class uiStatsManager : MonoBehaviour {
             caughtText.gameObject.SetActive(false);
     }
 
-    void Update()
+    void Update ()
     {
         mindPowerSlider.value = currentMindPower;
         valueText.text = currentMindPower.ToString("0");
@@ -72,7 +73,6 @@ public class uiStatsManager : MonoBehaviour {
 
         if (guardWhoCanSee)
         {
-            //currentCaughtValue += Time.deltaTime;
 
             caughtSlider.value = currentCaughtValue;
 

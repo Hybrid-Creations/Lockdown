@@ -6,12 +6,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class Waypoint : MonoBehaviour {
+public class Waypoint : MonoBehaviour
+{
     //Dank Memes
 
     Waypoint[] waypointsInScene;
 
-    void Start()
+    void Start ()
     {
         waypointsInScene = FindObjectsOfType<Waypoint>();
 

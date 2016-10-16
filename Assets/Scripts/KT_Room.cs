@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KT_Room : MonoBehaviour {
+public class KT_Room : MonoBehaviour
+{
 
     [SerializeField]
     GameObject door;
@@ -9,7 +10,8 @@ public class KT_Room : MonoBehaviour {
     public Waypoint wayPointIn;
     public Waypoint wayPointOut;
 
-    public enum ColorDoor {
+    public enum ColorDoor
+    {
         RED,
         YELLOW,
         BLUE,
@@ -19,18 +21,18 @@ public class KT_Room : MonoBehaviour {
     public ColorDoor myDoor = ColorDoor.GRAY;
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D (Collider2D other)
     {
         if (other.gameObject.GetComponent<LabTech>())
         {
@@ -58,7 +60,7 @@ public class KT_Room : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D (Collider2D other)
     {
         if (other.gameObject.GetComponent<LabTech>())
         {

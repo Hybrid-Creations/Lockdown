@@ -6,11 +6,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class LabTech : Unit {
+public class LabTech : Unit
+{
     //[Header("")]
     //leave this please
 
-    public enum TechType {
+    public enum TechType
+    {
         RED,
         YELLOW,
         BLUE
@@ -20,16 +22,18 @@ public class LabTech : Unit {
     public TechType myType = TechType.RED;
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         originalPosition = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        UpdateAI();
-
+        if (!isTutorial)
+        {
+            UpdateAI();
+        }
         if (!isControlled && currentAIMode != AIMode.ALERT)
             MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
         if (isControlled)
