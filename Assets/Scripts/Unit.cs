@@ -100,27 +100,30 @@ public class Unit : MonoBehaviour
 
         if (oldPosition != transform.position)
         {
-            difference = transform.position - oldPosition;
-            if (difference.normalized.y > 0.5f)
+            if (!isTutorial)
             {
-                LookUp();
+                difference = transform.position - oldPosition;
+                if (difference.normalized.y > 0.5f)
+                {
+                    LookUp();
+                }
+                if (difference.normalized.x > 0.5f)
+                {
+                    LookRight();
+                }
+                if (difference.normalized.y < -0.5f)
+                {
+                    LookDown();
+                }
+                if (difference.normalized.x < -0.5f)
+                {
+                    LookLeft();
+                }
             }
-            if (difference.normalized.x > 0.5f)
-            {
-                LookRight();
-            }
-            if (difference.normalized.y < -0.5f)
-            {
-                LookDown();
-            }
-            if (difference.normalized.x < -0.5f)
-            {
-                LookLeft();
-            }
+            //Debug.Log(difference.normalized);
+            oldPosition = transform.position;
         }
-        //Debug.Log(difference.normalized);
-        oldPosition = transform.position;
-    }
+   }
 
     public int UpdateCurrentWaypoint ()
     {
