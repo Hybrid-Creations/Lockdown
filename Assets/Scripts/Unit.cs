@@ -6,18 +6,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour {
+public class Unit : MonoBehaviour
+{
+    [Header("")]
+    public bool isTutorial;
 
-    public enum Faction {
+    public enum Faction
+    {
         CONTROLLABLE,
         UNCONTROLLABLE,
     }
 
-    public enum AIMode {
+    public enum AIMode
+    {
         RELAXED,
         ALERT
     }
 
+    [Header("")]
     public bool isControlled;
 
     public bool randomWaypoints;
@@ -66,14 +72,13 @@ public class Unit : MonoBehaviour {
 
     Transform playerPos;
 
-
-    void Start()
+    void Start ()
     {
         originalPosition = transform.position;
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    public void MoveTowardsWaypoint(Vector3 waypointPosition)
+    public void MoveTowardsWaypoint (Vector3 waypointPosition)
     {
         section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;
 
@@ -117,7 +122,7 @@ public class Unit : MonoBehaviour {
         oldPosition = transform.position;
     }
 
-    public int UpdateCurrentWaypoint()
+    public int UpdateCurrentWaypoint ()
     {
         Debug.Log(waypoints.Length);
         if (randomWaypoints)
@@ -157,7 +162,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-    public void LookUp()
+    public void LookUp ()
     {
         if (lookDirections.Length == 4)
         {
@@ -169,7 +174,7 @@ public class Unit : MonoBehaviour {
         //Debug.Log("looked Up");
     }
 
-    public void LookRight()
+    public void LookRight ()
     {
         if (lookDirections.Length == 4)
         {
@@ -180,7 +185,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-    public void LookDown()
+    public void LookDown ()
     {
         if (lookDirections.Length == 4)
         {
@@ -191,7 +196,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-    public void LookLeft()
+    public void LookLeft ()
     {
         if (lookDirections.Length == 4)
         {
@@ -202,7 +207,7 @@ public class Unit : MonoBehaviour {
         }
     }
 
-    public void FindNearestWaypoint()
+    public void FindNearestWaypoint ()
     {
         for (int i = 0; i < waypoints.Length; i++)
         {
@@ -215,7 +220,7 @@ public class Unit : MonoBehaviour {
         Debug.Log(currentWaypoint);
     }
 
-    public void PulseLight()
+    public void PulseLight ()
     {
         if (isControlled)
         {
@@ -239,25 +244,16 @@ public class Unit : MonoBehaviour {
                 pulseUp = true;
             if (pulseTimer >= 1)
                 pulseUp = false;
-
-            //Debug.Log(pulseTimer);
-            //Debug.Log(pulseUp);
-            //Debug.Log(Mathf.Lerp(minIntensity, maxIntensity, pulseTimer));
         }
     }
 
-    public void UpdateAI()
+    public void UpdateAI ()
     {
         if (!isControlled)
         {
             sightRangeObject.SetActive(true);
             if (!playerPos)
                 playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-
-            //if (DotTest(playerPos))
-            //{
-            //    currentAIMode = AIMode.ALERT;
-            //}
 
             //DotTest
             Vector2 lookThisWay = playerPos.position - sightRangeObject.transform.position;
@@ -280,7 +276,7 @@ public class Unit : MonoBehaviour {
                     FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
 
                 }
-                else if(currentAIMode == AIMode.ALERT)
+                else if (currentAIMode == AIMode.ALERT)
                 {
                     FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
                 }
