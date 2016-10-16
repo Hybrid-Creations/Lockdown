@@ -8,6 +8,8 @@ public class KT_FinalPanel : MonoBehaviour {
     [SerializeField]
     Light panelLight;
 
+
+    bool panelReady = false;
     // Use this for initialization
     void Start()
     {
@@ -26,18 +28,27 @@ public class KT_FinalPanel : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             panelLight.enabled = true;
+            panelReady = true;
         }
 
-        if (other.tag == "Enemy" && Input.GetMouseButtonDown(0))
-        {
-            finalDoor.SetActive(false);
-        }
+        //if (other.tag == "Enemy" && Input.GetMouseButtonDown(0))
+        //{
+        //    finalDoor.SetActive(false);
+        //}
     }
     void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Enemy")
         {
             panelLight.enabled = false;
+        }
+    }
+
+    public void ReadyToClick()
+    {
+        if (panelReady)
+        {
+            finalDoor.SetActive(false);
         }
     }
 }
