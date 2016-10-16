@@ -10,31 +10,38 @@ using UnityEngine.SceneManagement;
 
 public class uiStatsManager : MonoBehaviour
 {
-
+    [Header("Mind Power")]
     [SerializeField]
     Slider mindPowerSlider;
     [SerializeField]
-    Slider caughtSlider;
-    [SerializeField]
     Text valueText;
-
-    [SerializeField]
-    GameObject caughtText;
-
-    Vector2 screenPlacement;
-
-    public GameObject guardWhoCanSee;
-
     //[HideInInspector]
     public float currentMindPower;
     public float maxMindPower;
 
+    [Header("Caught Values")]
+    [SerializeField]
+    Slider caughtSlider;
+
+    [SerializeField]
+    GameObject caughtText;
+    [HideInInspector]
+    public GameObject guardWhoCanSee;
     public float currentCaughtValue;
     public float maxcaughtValue;
+
+    Vector2 screenPlacement;
 
     public static bool isPaused = false;
 
     float restartTimer;
+
+    [Header("Game Timer")]
+    [HideInInspector]
+    public float gameTimer;
+    [SerializeField]
+    Text gameTimerText;
+    float displayTimer;
 
     void Start ()
     {
@@ -106,5 +113,9 @@ public class uiStatsManager : MonoBehaviour
             if (currentCaughtValue < 0)
                 currentCaughtValue = 0;
         }
+
+        gameTimer += Time.deltaTime;
+        displayTimer = gameTimer * 100;
+        gameTimerText.text = displayTimer.ToString("0:00:00");
     }
 }
