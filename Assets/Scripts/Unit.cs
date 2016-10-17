@@ -78,6 +78,11 @@ public class Unit : MonoBehaviour
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    void Update()
+    {
+        
+    }
+
     public void MoveTowardsWaypoint (Vector3 waypointPosition)
     {
         section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;

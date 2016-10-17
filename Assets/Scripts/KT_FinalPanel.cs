@@ -52,16 +52,12 @@ public class KT_FinalPanel : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if(other.tag == "Enemy")
+        if(other.tag == "Enemy" && other.gameObject.GetComponent<LabTech>().isControlled)
         {
             panelLight.enabled = true;
             panelReady = true;
         }
 
-        //if (other.tag == "Enemy" && Input.GetMouseButtonDown(0))
-        //{
-        //    finalDoor.SetActive(false);
-        //}
     }
     void OnTriggerExit2D(Collider2D other)
     {
