@@ -16,6 +16,10 @@ public class KT_MsgSystem : MonoBehaviour
     public Text from;
     public bool textShowing;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     void Update ()
     {
