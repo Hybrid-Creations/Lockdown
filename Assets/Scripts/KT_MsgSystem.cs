@@ -17,13 +17,14 @@ public class KT_MsgSystem : MonoBehaviour
     public bool textShowing;
 
 
-    void Update()
+    void Update ()
     {
         if (msgTimer > 0)
         {
             msgTimer -= Time.deltaTime;
         }
-        else {
+        else
+        {
             textShowing = false;
         }
 
@@ -34,7 +35,7 @@ public class KT_MsgSystem : MonoBehaviour
         }
     }
 
-    public void DisplayMessage(string messenger, string body, float displayTime)
+    public void DisplayMessage (string messenger, string body, float displayTime)
     {
         chat.text = body;
         from.text = messenger;

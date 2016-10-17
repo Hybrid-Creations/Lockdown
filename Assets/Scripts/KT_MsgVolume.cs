@@ -2,7 +2,7 @@
 //Date: 10/17/16
 //Credit: PnP2 Message System Script
 //
-//Purpose: To devise a message system for the player, from specific entities;
+//Purpose: To devise a message system for the player, from specific entities
 
 using UnityEngine;
 using System.Collections;
@@ -29,6 +29,7 @@ public class KT_MsgVolume : MonoBehaviour {
         {
             msg.DisplayMessage(msgFrom,msgBody,msgTime);
         }
+        Debug.Log(other.name + " Is sitting in here");
     }
 
     void OnTriggerExit2D(Collider2D other)

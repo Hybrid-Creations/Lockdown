@@ -6,13 +6,6 @@ using UnityEngine.SceneManagement;
 public class KT_TutorialScene : MonoBehaviour
 {
 
-    private float msgTimer = 0;
-    [SerializeField]
-    Text chat;
-    [SerializeField]
-    Text from;
-    bool textShowing;
-
     public string msgFrom;
     public string msgBody;
     public float msgTime;
@@ -30,8 +23,6 @@ public class KT_TutorialScene : MonoBehaviour
     bool startTime;
     void Start()
     {
-        chat.text = null;
-        from.text = null;
         redLab.SetActive(false);
     }
 
@@ -46,28 +37,20 @@ public class KT_TutorialScene : MonoBehaviour
             }
         }
 
-        if (msgTimer > 0)
-        {
-            msgTimer -= Time.deltaTime;
-        }
-        else {
-            textShowing = false;
-        }
-
-        if (textShowing == false)
-        {
-            chat.text = null;
-            from.text = null;
-        }
+        //if (textShowing == false)
+        //{
+        //    chat.text = null;
+        //    from.text = null;
+        //}
     }
 
-    public void DisplayMessage(string messenger, string body, float displayTime)
-    {
-        chat.text = body;
-        from.text = messenger;
-        msgTimer = displayTime;
-        textShowing = true;
-    }
+    //public void DisplayMessage(string messenger, string body, float displayTime)
+    //{
+    //    chat.text = body;
+    //    from.text = messenger;
+    //    msgTimer = displayTime;
+    //    textShowing = true;
+    //}
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -75,7 +58,7 @@ public class KT_TutorialScene : MonoBehaviour
         {
             redLab.SetActive(true);
             uiStatsManager.isPaused = true;
-            DisplayMessage(msgFrom, msgBody, msgTime);
+            FindObjectOfType<KT_MsgSystem>().DisplayMessage(msgFrom, msgBody, msgTime);
             startTime = true;
         }
     }
