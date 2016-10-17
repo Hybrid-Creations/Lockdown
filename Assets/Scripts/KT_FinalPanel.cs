@@ -4,7 +4,7 @@ using System.Collections;
 public class KT_FinalPanel : MonoBehaviour {
 
     [SerializeField]
-    GameObject finalDoor;
+    GameObject[] finalDoor;
     [SerializeField]
     Light panelLight;
 
@@ -32,7 +32,7 @@ public class KT_FinalPanel : MonoBehaviour {
         lightOff = Color.grey;
         panelLight = GetComponent<Light>();
         panelLight.enabled = false;
-        finalDoor = GameObject.Find("FinalDoor");
+        finalDoor = GameObject.FindGameObjectsWithTag("FinalDoor");
     }
 
     // Update is called once per frame
@@ -45,7 +45,10 @@ public class KT_FinalPanel : MonoBehaviour {
             openTimer += Time.deltaTime;
             if(openTimer >= .5f)
             {
-                finalDoor.SetActive(false);
+                for(int i = 0; i < finalDoor.Length; i++)
+                {                   
+                finalDoor[i].SetActive(false);
+                }
             }
         }
     }

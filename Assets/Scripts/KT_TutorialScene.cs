@@ -6,22 +6,33 @@ using UnityEngine.SceneManagement;
 public class KT_TutorialScene : MonoBehaviour
 {
 
+    private float msgTimer = 0;
+    [SerializeField]
+    Text chat;
+    [SerializeField]
+    Text from;
+    bool textShowing;
+
+    public string msgFrom;
+    public string msgBody;
+    public float msgTime;
+
+    public bool onlyOnce;
+
+    [SerializeField]
     GameObject door;
 
     [SerializeField]
     GameObject redLab;
-
-    [SerializeField]
-    Text redChat;
 
     float endTimer;
 
     bool startTime;
     void Start()
     {
-        redChat.text = null;
+        chat.text = null;
+        from.text = null;
         redLab.SetActive(false);
-        door = GameObject.Find("FinalDoor");
     }
 
     void Update()
@@ -34,6 +45,28 @@ public class KT_TutorialScene : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
+
+        if (msgTimer > 0)
+        {
+            msgTimer -= Time.deltaTime;
+        }
+        else {
+            textShowing = false;
+        }
+
+        if (textShowing == false)
+        {
+            chat.text = null;
+            from.text = null;
+        }
+    }
+
+    public void DisplayMessage(string messenger, string body, float displayTime)
+    {
+        chat.text = body;
+        from.text = messenger;
+        msgTimer = displayTime;
+        textShowing = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -42,7 +75,7 @@ public class KT_TutorialScene : MonoBehaviour
         {
             redLab.SetActive(true);
             uiStatsManager.isPaused = true;
-            redChat.text = "Red Guard: " + "\"What do you think you're doing here?! Come on, back to your cell!\"";
+            DisplayMessage(msgFrom, msgBody, msgTime);
             startTime = true;
         }
     }
