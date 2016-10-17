@@ -38,7 +38,7 @@ public class uiStatsManager : MonoBehaviour
 
     [Header("Game Timer")]
     [HideInInspector]
-    public float gameTimer;
+    public static float gameTimer;
     [SerializeField]
     Text gameTimerText;
     float displayTimer;
