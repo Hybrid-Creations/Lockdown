@@ -3,6 +3,7 @@
 
 //Purpose: Managing the pressing and use of buttons
 
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
@@ -23,7 +24,7 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ToggleControles ()
+    public void ToggleControls ()
     {
         controls.SetActive(!controls.activeInHierarchy);
         uiStatsManager.isPaused = !uiStatsManager.isPaused;
@@ -31,5 +32,10 @@ public class ButtonManager : MonoBehaviour
             Time.timeScale = 0;
         if (!uiStatsManager.isPaused)
             Time.timeScale = 1;
+    }
+
+    public void LoadSceneByName (string nameOfScene)
+    {
+        SceneManager.LoadSceneAsync(nameOfScene);
     }
 }
