@@ -58,7 +58,7 @@ public class KT_TutorialScene : MonoBehaviour
         {
             redLab.SetActive(true);
             uiStatsManager.isPaused = true;
-            FindObjectOfType<KT_MsgSystem>().DisplayMessage(msgFrom, msgBody, msgTime);
+            FindObjectOfType<KT_MsgSystem>().DisplayMessage(msgFrom, msgBody, msgTime, redLab);
             startTime = true;
         }
     }

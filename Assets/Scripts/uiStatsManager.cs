@@ -30,15 +30,27 @@ public class uiStatsManager : MonoBehaviour
     public float currentCaughtValue;
     public float maxcaughtValue;
 
+    float restartTimer;
     Vector2 screenPlacement;
 
     public static bool isPaused = false;
 
-    float restartTimer;
+    [Header("Text Popup")]
+    [SerializeField]
+    GameObject popupGO;
+    [SerializeField]
+    Text popupName;
+    [SerializeField]
+    Text popupBody;
+    Vector2 screenOffset;
+    string nameOfChatter;
+    string bodyOfChatter;
+    float popupDisplayTime;
+    GameObject whoIsTalking;
 
-    [Header("Game Timer")]
-    [HideInInspector]
+
     public static float gameTimer;
+    [Header("Game Timer")]
     [SerializeField]
     Text gameTimerText;
     float displayTimer;
@@ -66,6 +78,16 @@ public class uiStatsManager : MonoBehaviour
     {
         mindPowerSlider.value = currentMindPower;
         valueText.text = currentMindPower.ToString("0");
+
+        if (popupDisplayTime > 0)
+        {
+            DisplayPopUp();
+            popupDisplayTime -= Time.deltaTime;
+        }
+        else
+        {
+            popupGO.SetActive(false);
+        }
 
         if (Input.GetKeyDown(KeyCode.P) && isPaused == false)
         {
@@ -117,5 +139,26 @@ public class uiStatsManager : MonoBehaviour
         gameTimer += Time.deltaTime;
         displayTimer = gameTimer * 100;
         gameTimerText.text = displayTimer.ToString("0:00:00");
+    }
+
+    public void GrabTheMessage (string talker, string body, float timeToDisplay, GameObject whoTalks)
+    {
+        nameOfChatter = talker;
+        bodyOfChatter = body;
+        popupDisplayTime = timeToDisplay;
+        whoIsTalking = whoTalks;
+        Debug.Log("Got the message");
+    }
+
+    void DisplayPopUp ()
+    {
+        popupGO.SetActive(true);
+        screenOffset = Camera.main.WorldToScreenPoint(whoIsTalking.transform.position);
+        screenOffset.y += 30;
+        screenOffset.x += 15;
+        popupBody.text = bodyOfChatter;
+        popupName.text = nameOfChatter;
+        popupGO.gameObject.transform.position = screenOffset;
+        Debug.Log("Displaying the message");
     }
 }

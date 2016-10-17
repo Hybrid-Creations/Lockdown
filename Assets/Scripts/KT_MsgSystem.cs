@@ -28,18 +28,20 @@ public class KT_MsgSystem : MonoBehaviour
             textShowing = false;
         }
 
-        if (textShowing == false)
-        {
-            chat.text = null;
-            from.text = null;
-        }
+        //if (textShowing == false)
+        //{
+        //    chat.text = null;
+        //    from.text = null;
+        //}
     }
 
-    public void DisplayMessage (string messenger, string body, float displayTime)
+    public void DisplayMessage (string messenger, string body, float displayTime, GameObject whoIsTheTalker)
     {
         chat.text = body;
         from.text = messenger;
         msgTimer = displayTime;
         textShowing = true;
+        
+        FindObjectOfType<uiStatsManager>().GrabTheMessage(messenger, body, displayTime, whoIsTheTalker);
     }
 }

@@ -12,6 +12,7 @@ public class KT_MsgVolume : MonoBehaviour {
 
     private KT_MsgSystem msg;
 
+    public GameObject whoIsTalking;
     public string msgFrom;
     public string msgBody;
     public float msgTime;
@@ -27,9 +28,9 @@ public class KT_MsgVolume : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            msg.DisplayMessage(msgFrom,msgBody,msgTime);
+            msg.DisplayMessage(msgFrom,msgBody,msgTime, whoIsTalking);
         }
-        Debug.Log(other.name + " Is sitting in here");
+        //Debug.Log(other.name + " Is sitting in here");
     }
 
     void OnTriggerExit2D(Collider2D other)

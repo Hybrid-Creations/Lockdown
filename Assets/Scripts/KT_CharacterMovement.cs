@@ -32,10 +32,10 @@ public class KT_CharacterMovement : MonoBehaviour
     [SerializeField]
     float rechargeTimer;
 
-    static bool up;
-    static bool right;
-    static bool down;
-    static bool left;
+    bool up;
+    bool right;
+    bool down;
+    bool left;
     bool lightOn = false;
     bool rechargePower = false;
 
