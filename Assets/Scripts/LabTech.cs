@@ -35,10 +35,10 @@ public class LabTech : Unit
             UpdateAI();
         }
         if (!isControlled && currentAIMode != AIMode.ALERT)
-            MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+            MoveTowardsWaypoint(currentWaypoint.gameObject.transform.position);
         if (isControlled)
             PulseLight();
 
-        Debug.Log(waypoints[currentWaypoint].gameObject.transform.position);
+        //Debug.Log(waypoints[currentWaypoint].gameObject.transform.position);
     }
 }

@@ -45,9 +45,11 @@ public class Unit : MonoBehaviour
 
     [Header("Movement")]
     public Waypoint[] waypoints;
+    [HideInInspector]
+    public bool rePath;
 
     [HideInInspector]
-    public int currentWaypoint = 0;
+    public Waypoint currentWaypoint;
 
     public GameObject[] lookDirections;
 
@@ -130,16 +132,16 @@ public class Unit : MonoBehaviour
         }
    }
 
-    public int UpdateCurrentWaypoint ()
+    public Waypoint UpdateCurrentWaypoint ()
     {
         Debug.Log(waypoints.Length);
         if (randomWaypoints)
         {
-            int l = currentWaypoint;
+            Waypoint l = currentWaypoint;
 
             int i = Random.Range(0, waypoints.Length);
 
-            if (i == l)
+            if (waypoints[i] == l)
             {
                 i++;
             }
@@ -150,12 +152,12 @@ public class Unit : MonoBehaviour
 
             originalPosition = transform.position;
             section = 0;
-            return i;
+            return waypoints[i];
 
         }
         else
         {
-            int i = currentWaypoint;
+            int i = System.Array.IndexOf(waypoints, currentWaypoint); //currentWaypoint;
 
             i++;
 
@@ -166,7 +168,7 @@ public class Unit : MonoBehaviour
 
             originalPosition = transform.position;
             section = 0;
-            return i;
+            return waypoints[i];
         }
     }
 
@@ -215,17 +217,33 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void FindNearestWaypoint ()
+    public void FindNearestWaypoint()
     {
-        for (int i = 0; i < waypoints.Length; i++)
+        if (rePath)
         {
-            if (Vector3.Distance(transform.position, waypoints[i].transform.position) < closestDistance)
+            Waypoint[] allWaypoints = FindObjectsOfType<Waypoint>();
+
+            for (int i = 0; i < allWaypoints.Length; i++)
             {
-                closestDistance = Vector3.Distance(transform.position, waypoints[i].transform.position);
-                currentWaypoint = i;
+                if (Vector3.Distance(transform.position, waypoints[i].transform.position) < closestDistance)
+                {
+                    closestDistance = Vector3.Distance(transform.position, waypoints[i].transform.position);
+                    currentWaypoint = waypoints[i];
+                }
             }
         }
-        Debug.Log(currentWaypoint);
+        else
+        {
+            for (int i = 0; i < waypoints.Length; i++)
+            {
+                if (Vector3.Distance(transform.position, waypoints[i].transform.position) < closestDistance)
+                {
+                    closestDistance = Vector3.Distance(transform.position, waypoints[i].transform.position);
+                    currentWaypoint = waypoints[i];
+                }
+            }
+            Debug.Log(currentWaypoint);
+        }
     }
 
     public void PulseLight ()

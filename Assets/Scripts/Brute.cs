@@ -18,6 +18,6 @@ public class Brute : Unit
     void Update ()
     {
         if (!isControlled)
-            MoveTowardsWaypoint(waypoints[currentWaypoint].gameObject.transform.position);
+            MoveTowardsWaypoint(currentWaypoint.gameObject.transform.position);
     }
 }
