@@ -265,7 +265,7 @@ public class Unit : MonoBehaviour
 
             //DotTest
             Vector2 lookThisWay = playerPos.position - sightRangeObject.transform.position;
-            Vector2 toMe = sightRangeObject.transform.position - playerPos.position;
+            //Vector2 toMe = sightRangeObject.transform.position - playerPos.position;
             float distance = lookThisWay.magnitude;
 
             float dotForwardResult = Vector2.Dot(lookThisWay.normalized, -sightRangeObject.transform.right);
