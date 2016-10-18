@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -31,5 +32,10 @@ public class ButtonManager : MonoBehaviour
             Time.timeScale = 0;
         if (!uiStatsManager.isPaused)
             Time.timeScale = 1;
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
