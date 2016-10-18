@@ -25,6 +25,7 @@ public class LabTech : Unit
     void Start ()
     {
         originalPosition = transform.position;
+        currentWaypoint = waypoints[0];
     }
 
     // Update is called once per frame

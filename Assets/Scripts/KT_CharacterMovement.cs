@@ -22,7 +22,7 @@ public class KT_CharacterMovement : MonoBehaviour
     float maxDist = 5;
 
     [SerializeField]
-    float moveSpeed = 3;
+    float moveSpeed = 0.07f;
 
     [SerializeField]
     GameObject thingToSwitchTo;
@@ -209,7 +209,7 @@ public class KT_CharacterMovement : MonoBehaviour
             player.GetComponent<Unit>().lightObj.intensity = 1.5f;
         }
         currentControl.GetComponent<Unit>().isControlled = true;
-        Debug.Log("player controlled");
+        //Debug.Log("player controlled");
         lightOn = true;
     }
 }
