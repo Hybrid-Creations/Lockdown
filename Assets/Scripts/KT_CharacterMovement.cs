@@ -7,8 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class KT_CharacterMovement : MonoBehaviour
-{
+public class KT_CharacterMovement : MonoBehaviour {
     [SerializeField]
     Light psyGlow;
 
@@ -23,6 +22,9 @@ public class KT_CharacterMovement : MonoBehaviour
 
     [SerializeField]
     float moveSpeed = 0.07f;
+
+    [SerializeField]
+    float maxSpeed = 5;
 
     [SerializeField]
     GameObject thingToSwitchTo;
@@ -40,7 +42,7 @@ public class KT_CharacterMovement : MonoBehaviour
     bool rechargePower = false;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentControl = GameObject.FindGameObjectWithTag("Player");
@@ -49,7 +51,7 @@ public class KT_CharacterMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         psyGlow = currentControl.GetComponent<Unit>().lightObj;
         if (currentControl == player)
@@ -70,7 +72,7 @@ public class KT_CharacterMovement : MonoBehaviour
         }
     }
 
-    void MindPower ()
+    void MindPower()
     {
         float distancetoControl = Vector2.Distance(currentControl.transform.position, player.transform.position);
         Mathf.Round(distancetoControl);
@@ -108,89 +110,145 @@ public class KT_CharacterMovement : MonoBehaviour
         }
     }
 
-    void CharacterMovement ()
+    void CharacterMovement()
     {
-
-
-        if (Input.GetKey(KeyCode.W))
+        if (currentControl.GetComponent<Rigidbody2D>().velocity.y < maxSpeed)
         {
-            currentControl.transform.position += currentControl.transform.up * moveSpeed;
+            if (Input.GetKey(KeyCode.W))
+            {
+                currentControl.GetComponent<Rigidbody2D>().velocity += Vector2.up * moveSpeed;
 
-            up = true;
-            right = false;
-            down = false;
-            left = false;
+                up = true;
+                right = false;
+                down = false;
+                left = false;
 
+            }
         }
-        if (Input.GetKey(KeyCode.A))
+        if (currentControl.GetComponent<Rigidbody2D>().velocity.y > -maxSpeed)
         {
-            currentControl.transform.position += -currentControl.transform.right * moveSpeed;
-            up = false;
-            right = false;
-            down = false;
-            left = true;
+            if (Input.GetKey(KeyCode.S))
+            {
+                currentControl.GetComponent<Rigidbody2D>().velocity += -Vector2.up * moveSpeed;
+                up = false;
+                right = false;
+                down = true;
+                left = false;
+            }
         }
-        if (Input.GetKey(KeyCode.D))
+        if (currentControl.GetComponent<Rigidbody2D>().velocity.x > -maxSpeed)
         {
-            currentControl.transform.position += currentControl.transform.right * moveSpeed;
-            up = false;
-            right = true;
-            down = false;
-            left = false;
+            if (Input.GetKey(KeyCode.A))
+            {
+                currentControl.GetComponent<Rigidbody2D>().velocity += -Vector2.right * moveSpeed;
+                up = false;
+                right = false;
+                down = false;
+                left = true;
+            }
         }
-        if (Input.GetKey(KeyCode.S))
+        if (currentControl.GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
         {
-            currentControl.transform.position += -currentControl.transform.up * moveSpeed;
-            up = false;
-            right = false;
-            down = true;
-            left = false;
+            if (Input.GetKey(KeyCode.D))
+            {
+                currentControl.GetComponent<Rigidbody2D>().velocity += Vector2.right * moveSpeed;
+                up = false;
+                right = true;
+                down = false;
+                left = false;
+            }
+        }  
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
+            newVel.y = 0;
+            currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
         }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
+            newVel.x = 0;
+            currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
+            newVel.y = 0;
+            currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
+            newVel.x = 0;
+            currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
+        }
+
         currentControl.GetComponent<Unit>().lookDirections[0].gameObject.SetActive(up);
         currentControl.GetComponent<Unit>().lookDirections[1].gameObject.SetActive(right);
         currentControl.GetComponent<Unit>().lookDirections[2].gameObject.SetActive(down);
         currentControl.GetComponent<Unit>().lookDirections[3].gameObject.SetActive(left);
+        //Debug.Log(currentControl.GetComponent<Rigidbody2D>().velocity);
 
+        if (uiStatsManager.isPaused)
+            currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
-    void CanControl ()
+    void CanControl()
     {
+        Debug.Log(uiStatsManager.isPaused);
         Vector2 drawDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - currentControl.transform.position);
-        currentControl.layer = 2;
-        if (Physics2D.Raycast(currentControl.transform.position, drawDirection, maxDist))
+        //currentControl.layer = 2;
+
+        RaycastHit2D hit;
+        Debug.DrawRay(currentControl.transform.position, drawDirection, Color.magenta);
+
+        hit = Physics2D.Raycast(currentControl.transform.position, drawDirection, drawDirection.magnitude);
+
+        if (hit)
         {
-
-            RaycastHit2D hit;
-
-            hit = Physics2D.Raycast(currentControl.transform.position, drawDirection, maxDist);
-            Debug.DrawRay(currentControl.transform.position, drawDirection, Color.magenta);
-            //if (hit.collider != null && (hit.collider.GetComponent<Unit>().currentFaction != Unit.Faction.CONTROLLABLE || hit.collider.GetComponent<Unit>().currentFaction != Unit.Faction.UNCONTROLLABLE))
-            //    Debug.Log(hit.collider.name);
-
-            if (hit.collider.gameObject.GetComponent<Unit>() != null)
+            if (hit.collider.GetComponent<Unit>() && hit.collider.GetComponent<Unit>().currentFaction != Unit.Faction.UNCONTROLLABLE)
             {
-                if (currentControl == player)
-                    lightOn = true;
-                if (hit.collider.gameObject.GetComponent<Unit>().isControlled == false && hit.collider.gameObject.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
+                //    Debug.Log(hit.collider.name);
+                if (drawDirection.magnitude < maxDist)
                 {
-                    if (Input.GetButtonDown("Fire1") && hit.collider.gameObject.GetComponent<Unit>().currentAIMode == Unit.AIMode.RELAXED)
+
+                    //Debug.Log(hit.collider.name);
+                    if (hit.collider.gameObject.GetComponent<Unit>() != null)
                     {
-                        NewSelection(hit.collider.gameObject);
+                        if (currentControl == player)
+                            lightOn = true;
+                        if (hit.collider.gameObject.GetComponent<Unit>().isControlled == false && hit.collider.gameObject.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
+                        {
+                            if (Input.GetButtonDown("Fire1") && hit.collider.gameObject.GetComponent<Unit>().currentAIMode == Unit.AIMode.RELAXED)
+                            {
+                                NewSelection(hit.collider.gameObject);
+                            }
+                        }
                     }
+                    else if (currentControl == player)
+                        lightOn = false;
                 }
+                else if (currentControl == player)
+                    lightOn = false;
             }
             else if (currentControl == player)
             {
                 lightOn = false;
             }
         }
+        else if (currentControl == player)
+        {
+            lightOn = false;
+        }
+
         if (Input.GetButtonDown("Fire2"))
         {
             NewSelection(player);
         }
     }
 
-    void NewSelection (GameObject newObject)
+    void NewSelection(GameObject newObject)
     {
         currentControl.GetComponent<Unit>().originalPosition = currentControl.transform.position;
         currentControl.GetComponent<Unit>().section = 0;

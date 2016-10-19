@@ -95,7 +95,7 @@ public class Unit : MonoBehaviour
         Debug.Log("WELL THIS MEEME WORKS PROBS");
         }
 
-        Debug.Log(currentWaypoint.gameObject.name);
+        //Debug.Log(currentWaypoint.gameObject.name);
 
         section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;
 
@@ -321,7 +321,7 @@ public class Unit : MonoBehaviour
 
             //DotTest
             Vector2 lookThisWay = playerPos.position - sightRangeObject.transform.position;
-            //Vector2 toMe = sightRangeObject.transform.position - playerPos.position;
+
             float distance = lookThisWay.magnitude;
 
             float dotForwardResult = Vector2.Dot(lookThisWay.normalized, -sightRangeObject.transform.right);
@@ -330,25 +330,33 @@ public class Unit : MonoBehaviour
 
             if (!KT_InCell.inCell)
             {
-                if (angle < sightAngle && lookThisWay.magnitude < sightRange)
+                RaycastHit2D hit;
+                if (hit = Physics2D.Raycast(transform.position, lookThisWay, sightRange))
                 {
-                    //Debug.Log("MEMES????");
-                    currentAIMode = AIMode.ALERT;
+                    if (hit.collider.tag == "Player")
+                    {
+                        if (angle < sightAngle && lookThisWay.magnitude < sightRange)
+                        {
 
-                    Debug.Log("I CAN SEE YOU");
-                    FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 6.6f) / distance;
-                    FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+                            //Debug.Log(hit.collider.name);
+                            currentAIMode = AIMode.ALERT;
 
+                            Debug.Log("I CAN SEE YOU");
+                            FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 6.6f) / distance;
+                            FindObjectOfType<uiStatsManager>().guardWhoCanSee = gameObject;
+                        }
+                    }
+                    else if (currentAIMode == AIMode.ALERT)
+                    {
+                        FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
+                    }
                 }
+
                 else if (currentAIMode == AIMode.ALERT)
                 {
-                    FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
+                    if (!uiStatsManager.isPaused)
+                        FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
                 }
-            }
-            else if (currentAIMode == AIMode.ALERT)
-            {
-                if(!uiStatsManager.isPaused)
-                FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
             }
 
             if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
