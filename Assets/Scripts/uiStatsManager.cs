@@ -54,6 +54,7 @@ public class uiStatsManager : MonoBehaviour
     [SerializeField]
     Text gameTimerText;
     float displayTimer;
+    bool restart = false;
 
     void Start ()
     {
@@ -76,6 +77,14 @@ public class uiStatsManager : MonoBehaviour
 
     void Update ()
     {
+        if (restart)
+        {
+            restartTimer += Time.deltaTime;
+            if (restartTimer > 2)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
         mindPowerSlider.value = currentMindPower;
         valueText.text = currentMindPower.ToString("0");
 
@@ -120,11 +129,7 @@ public class uiStatsManager : MonoBehaviour
                 caughtText.gameObject.SetActive(true);
                 restartTimer += Time.deltaTime;
                 isPaused = true;
-
-                if (restartTimer > 2)
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
+                restart = true;
             }
             else if (currentCaughtValue <= 0)
             {

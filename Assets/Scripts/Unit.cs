@@ -347,6 +347,7 @@ public class Unit : MonoBehaviour
             }
             else if (currentAIMode == AIMode.ALERT)
             {
+                if(!uiStatsManager.isPaused)
                 FindObjectOfType<uiStatsManager>().currentCaughtValue -= Time.deltaTime;
             }
 
