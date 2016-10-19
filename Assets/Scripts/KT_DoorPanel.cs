@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KT_FinalPanel : MonoBehaviour {
+public class KT_DoorPanel : MonoBehaviour {
 
     [SerializeField]
-    GameObject[] finalDoor;
+    GameObject door;
     [SerializeField]
     Light panelLight;
 
@@ -23,7 +23,7 @@ public class KT_FinalPanel : MonoBehaviour {
 
     bool panelReady = false;
     bool panelActivation = false;
-    bool clicked = false;
+    public bool clicked = false;
     // Use this for initialization
     void Start()
     {
@@ -32,7 +32,7 @@ public class KT_FinalPanel : MonoBehaviour {
         lightOff = Color.grey;
         panelLight = GetComponent<Light>();
         panelLight.enabled = false;
-        finalDoor = GameObject.FindGameObjectsWithTag("FinalDoor");
+
     }
 
     // Update is called once per frame
@@ -43,13 +43,8 @@ public class KT_FinalPanel : MonoBehaviour {
         {
             panelWork.SetBool("On", true);
             openTimer += Time.deltaTime;
-            if(openTimer >= .5f)
-            {
-                for(int i = 0; i < finalDoor.Length; i++)
-                {                   
-                finalDoor[i].SetActive(false);
-                }
-            }
+            if (openTimer >= .5f)
+                door.SetActive(false);
         }
     }
 
