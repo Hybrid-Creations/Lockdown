@@ -110,7 +110,7 @@ public class Unit : MonoBehaviour
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.5f)
+        else if (Vector3.Distance(originalPosition, waypointPosition) < 1f)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
