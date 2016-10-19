@@ -340,6 +340,7 @@ public class Unit : MonoBehaviour
 
                             //Debug.Log(hit.collider.name);
                             currentAIMode = AIMode.ALERT;
+                            GetComponent<Rigidbody2D>().isKinematic = true;
 
                             Debug.Log("I CAN SEE YOU");
                             FindObjectOfType<uiStatsManager>().currentCaughtValue += (Time.deltaTime * 6.6f) / distance;
@@ -362,6 +363,7 @@ public class Unit : MonoBehaviour
             if (FindObjectOfType<uiStatsManager>().currentCaughtValue <= 0)
             {
                 currentAIMode = AIMode.RELAXED;
+                GetComponent<Rigidbody2D>().isKinematic = false;
             }
 
             if (currentAIMode == AIMode.ALERT)
