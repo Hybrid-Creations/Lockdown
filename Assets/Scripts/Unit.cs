@@ -71,7 +71,7 @@ public class Unit : MonoBehaviour
 
     [Header("AI Values")]
     public float sightAngle = 30;
-    public float sightRange = 3.7f;
+    public float sightRange = 3.425f;
 
     public GameObject sightRangeObject;
 
