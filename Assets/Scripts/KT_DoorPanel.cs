@@ -23,7 +23,7 @@ public class KT_DoorPanel : MonoBehaviour {
 
     bool panelReady = false;
     bool panelActivation = false;
-    public bool clicked = false;
+    bool clicked = false;
     // Use this for initialization
     void Start()
     {
