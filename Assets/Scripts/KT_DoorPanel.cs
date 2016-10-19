@@ -62,16 +62,17 @@ public class KT_DoorPanel : MonoBehaviour {
     {
         if(other.tag == "Enemy")
         {
+            panelReady = false;
             panelLight.enabled = false;
         }
     }
 
     public void ReadyToClick()
     {
+            Debug.Log("Clicked");
         if (panelReady && panelActivation == false && clicked == false)
         {
             clicked = true;
-            Debug.Log("Clicked");
         }
     }
 

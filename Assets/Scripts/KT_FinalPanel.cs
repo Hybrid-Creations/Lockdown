@@ -68,6 +68,7 @@ public class KT_FinalPanel : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             panelLight.enabled = false;
+            panelReady = false;
         }
     }
 
