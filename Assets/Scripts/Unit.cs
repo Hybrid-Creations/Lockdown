@@ -111,7 +111,7 @@ public class Unit : MonoBehaviour
             
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.66f)
+        else if (Vector3.Distance(originalPosition, waypointPosition) < 1)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
@@ -158,6 +158,7 @@ public class Unit : MonoBehaviour
                 rePath = false;
                 backToPath = true;
                 //UpdateCurrentWaypoint();
+                Debug.Log("Last repath Waypoint");
                 return roomWaypoints[roomWaypoints.Length - 1];
             }
 
