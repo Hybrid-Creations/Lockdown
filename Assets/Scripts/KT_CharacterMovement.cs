@@ -77,7 +77,7 @@ public class KT_CharacterMovement : MonoBehaviour
 
         if (currentControl != player)
         {
-            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 2;
+            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 3f;
         }
         else
         {
