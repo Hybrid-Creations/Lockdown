@@ -86,6 +86,17 @@ public class Unit : MonoBehaviour
 
     public void MoveTowardsWaypoint (Vector3 waypointPosition)
     {
+        if (backToPath)
+        {
+            originalPosition = transform.position;
+            section = 0;
+            closestDistance = Mathf.Infinity;
+            FindNearestWaypoint();
+        Debug.Log("WELL THIS MEEME WORKS PROBS");
+        }
+
+        Debug.Log(currentWaypoint.gameObject.name);
+
         section += Time.deltaTime * 1 / Vector3.Distance(originalPosition, waypointPosition) * moveSpeed;
 
         if (section > Vector3.Distance(originalPosition, waypointPosition))
@@ -97,14 +108,11 @@ public class Unit : MonoBehaviour
 
         if (Vector3.Distance(transform.position, waypointPosition) <= 0.05f)
         {
-            if (backToPath)
-                FindNearestWaypoint();
+            
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.9f)
+        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.66f)
         {
-            if (backToPath)
-                FindNearestWaypoint();
             currentWaypoint = UpdateCurrentWaypoint();
         }
 
@@ -137,6 +145,7 @@ public class Unit : MonoBehaviour
 
     public Waypoint UpdateCurrentWaypoint()
     {
+        int memes;
         if (rePath)
         {
             int i = System.Array.IndexOf(roomWaypoints, currentWaypoint); //currentWaypoint;
@@ -145,9 +154,11 @@ public class Unit : MonoBehaviour
 
             if (i >= roomWaypoints.Length)
             {
+                memes = i;
                 rePath = false;
+                backToPath = true;
                 //UpdateCurrentWaypoint();
-                return roomWaypoints[roomWaypoints.Length -1];
+                return roomWaypoints[roomWaypoints.Length - 1];
             }
 
             originalPosition = transform.position;

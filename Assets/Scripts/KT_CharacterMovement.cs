@@ -173,7 +173,7 @@ public class KT_CharacterMovement : MonoBehaviour
                     lightOn = true;
                 if (hit.collider.gameObject.GetComponent<Unit>().isControlled == false && hit.collider.gameObject.GetComponent<Unit>().currentFaction == Unit.Faction.CONTROLLABLE)
                 {
-                    if (Input.GetButtonDown("Fire1"))
+                    if (Input.GetButtonDown("Fire1") && hit.collider.gameObject.GetComponent<Unit>().currentAIMode == Unit.AIMode.RELAXED)
                     {
                         NewSelection(hit.collider.gameObject);
                     }
