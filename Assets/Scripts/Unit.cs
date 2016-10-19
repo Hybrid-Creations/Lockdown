@@ -108,10 +108,9 @@ public class Unit : MonoBehaviour
 
         if (Vector3.Distance(transform.position, waypointPosition) <= 0.05f)
         {
-            
             currentWaypoint = UpdateCurrentWaypoint();
         }
-        else if (Vector3.Distance(originalPosition, waypointPosition) < 1)
+        else if (Vector3.Distance(originalPosition, waypointPosition) < 0.5f)
         {
             currentWaypoint = UpdateCurrentWaypoint();
         }
@@ -146,27 +145,8 @@ public class Unit : MonoBehaviour
     public Waypoint UpdateCurrentWaypoint()
     {
         int memes;
-        if (rePath)
+        if (!rePath)
         {
-            int i = System.Array.IndexOf(roomWaypoints, currentWaypoint); //currentWaypoint;
-
-            i++;
-
-            if (i >= roomWaypoints.Length)
-            {
-                memes = i;
-                rePath = false;
-                backToPath = true;
-                //UpdateCurrentWaypoint();
-                Debug.Log("Last repath Waypoint");
-                return roomWaypoints[roomWaypoints.Length - 1];
-            }
-
-            originalPosition = transform.position;
-            section = 0;
-            return roomWaypoints[i];
-        }
-        else {
             //Debug.Log(waypoints.Length);
             if (randomWaypoints)
             {
@@ -203,6 +183,26 @@ public class Unit : MonoBehaviour
                 section = 0;
                 return waypoints[i];
             }
+        }
+        else
+        {
+            int i = System.Array.IndexOf(roomWaypoints, currentWaypoint); //currentWaypoint;
+
+            i++;
+
+            if (i >= roomWaypoints.Length)
+            {
+                memes = i;
+                rePath = false;
+                backToPath = true;
+                //UpdateCurrentWaypoint();
+                Debug.Log("Last repath Waypoint");
+                return roomWaypoints[roomWaypoints.Length - 1];
+            }
+
+            originalPosition = transform.position;
+            section = 0;
+            return roomWaypoints[i];
         }
     }
 
@@ -253,6 +253,10 @@ public class Unit : MonoBehaviour
 
     public void FindNearestWaypoint()
     {
+        backToPath = false;
+
+        originalPosition = transform.position;
+
         if (rePath)
         {
             //Waypoint[] allWaypoints = FindObjectsOfType<Waypoint>();
@@ -277,8 +281,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        backToPath = false;
-            //Debug.Log(currentWaypoint.gameObject.name);
+        //Debug.Log(currentWaypoint.gameObject.name);
     }
 
     public void PulseLight ()
