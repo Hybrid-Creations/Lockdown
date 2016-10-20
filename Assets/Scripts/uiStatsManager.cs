@@ -11,8 +11,7 @@ using UnityEngine.SceneManagement;
 public class uiStatsManager : MonoBehaviour
 {
     [Header("Mind Power")]
-    [SerializeField]
-    Slider mindPowerSlider;
+    public Slider mindPowerSlider;
     [SerializeField]
     Text valueText;
     //[HideInInspector]
