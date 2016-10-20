@@ -4,15 +4,11 @@ using System.Collections;
 
 public class WaypointHolder : MonoBehaviour {
 
-    [MenuItem("Waypoints/Hierarchy Window Changed")]
-    static void Example()
-    {
-        EditorApplication.hierarchyWindowChanged += ExampleCallback;
-    }
+    [MenuItem("Waypoints/UpdateWaypoints _%W")]
     static void ExampleCallback()
     {
         Object[] all = FindObjectsOfType(typeof(Waypoint));
-        Debug.Log("There are " + all.Length + " waypoints at the moment.");
+        Debug.Log( all.Length + " waypoints have been moved.");
 
         foreach(Waypoint wP in all)
         {
