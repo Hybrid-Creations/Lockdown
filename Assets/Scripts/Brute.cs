@@ -6,8 +6,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Brute : Unit
-{
+public class Brute : Unit {
     [Header("")]
     //leave this please
 
@@ -15,9 +14,16 @@ public class Brute : Unit
     [SerializeField]
     GameObject memes;
 
-    void Update ()
+    void Update()
     {
-        if (!isControlled)
+        if (!isTutorial)
+        {
+            UpdateAI();
+        }
+
+        if (!isControlled && currentAIMode != AIMode.ALERT)
             MoveTowardsWaypoint(currentWaypoint.gameObject.transform.position);
+        if (isControlled)
+            PulseLight();
     }
 }

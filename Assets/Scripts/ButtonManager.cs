@@ -18,10 +18,13 @@ public class ButtonManager : MonoBehaviour
     GameObject credits;
 
     public bool opening;
-    void Start ()
+    void Start()
     {
-        if(!opening)
-        controls.SetActive(false);
+        if (controls)
+        {
+            if (!opening)
+                controls.SetActive(false);
+        }
     }
 
 
@@ -59,6 +62,10 @@ public class ButtonManager : MonoBehaviour
     public void Continue()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
