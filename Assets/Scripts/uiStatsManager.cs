@@ -147,8 +147,11 @@ public class uiStatsManager : MonoBehaviour
                 currentCaughtValue = 0;
         }
 
-        if(!FindObjectOfType<KT_GameOver>())
-        gameTimer += Time.deltaTime;
+        if (!isPaused)
+        {
+            if (!FindObjectOfType<KT_GameOver>())
+                gameTimer += Time.deltaTime;
+        }
         //displayTimer = gameTimer * 100;
         if (gameTimerText)
             gameTimerText.text = SetBaseSixty(gameTimer); //displayTimer.ToString("0:00:00");
