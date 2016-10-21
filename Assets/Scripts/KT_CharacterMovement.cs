@@ -79,7 +79,7 @@ public class KT_CharacterMovement : MonoBehaviour {
 
         if (currentControl != player)
         {
-            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 3f;
+            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 2.3f;
         }
         else
         {
@@ -91,7 +91,15 @@ public class KT_CharacterMovement : MonoBehaviour {
                     rechargeTimer += Time.deltaTime;
                     if (rechargeTimer >= 1)
                     {
-                        FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * 10;
+                        float deltaIncrase;
+
+                        deltaIncrase = (uiStatsManager.maxMindPower - FindObjectOfType<uiStatsManager>().currentMindPower - 35);
+                        if(deltaIncrase < 14)
+                        {
+                            deltaIncrase = 14;
+                        }
+
+                        FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * deltaIncrase;
                         if (FindObjectOfType<uiStatsManager>().currentMindPower >= uiStatsManager.maxMindPower)
                         {
                             FindObjectOfType<uiStatsManager>().currentMindPower = uiStatsManager.maxMindPower;
@@ -274,6 +282,7 @@ public class KT_CharacterMovement : MonoBehaviour {
             currentControl.GetComponent<Rigidbody2D>().isKinematic = false;
             player.GetComponent<Unit>().lightObj.intensity = 1.5f;
         }
+        currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         currentControl.GetComponent<Unit>().isControlled = true;
         //Debug.Log("player controlled");
         lightOn = true;
