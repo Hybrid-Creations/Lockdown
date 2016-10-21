@@ -257,8 +257,11 @@ public class KT_CharacterMovement : MonoBehaviour {
         currentControl.GetComponent<Unit>().isControlled = false;
         currentControl.GetComponent<Unit>().lightObj.intensity = .5f;
         if (currentControl == player)
+        {
+            currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             currentControl.GetComponent<Rigidbody2D>().isKinematic = true;
-        
+        }
+
         if (currentControl != player)
         {
             currentControl.GetComponent<Unit>().lightObj.enabled = false;
@@ -267,6 +270,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         currentControl = newObject;
         if (currentControl == player)
         {
+            currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             currentControl.GetComponent<Rigidbody2D>().isKinematic = false;
             player.GetComponent<Unit>().lightObj.intensity = 1.5f;
         }

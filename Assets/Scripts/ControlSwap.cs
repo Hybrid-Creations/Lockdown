@@ -29,7 +29,7 @@ public class ControlSwap : MonoBehaviour {
                 if (hit = Physics2D.Raycast(transform.position, (controlled.transform.position - transform.position),
                     FindObjectOfType<KT_CharacterMovement>().maxDist))
                 {
-                    if (hit.collider.tag == "Player")
+                    if (hit.collider.GetComponent<Unit>())
                         canControl = true;
                     else
                         canControl = false;
