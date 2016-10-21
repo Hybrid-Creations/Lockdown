@@ -20,12 +20,22 @@ public class ControlSwap : MonoBehaviour {
 
     void Update()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) < FindObjectOfType<KT_CharacterMovement>().maxDist)
-            canControl = true;
-        else
-            canControl = false;
 
-        canCon.SetActive(canControl);
-        cantCon.SetActive(!canControl);
+        if (!transform.parent.GetComponent<Unit>().isControlled)
+        {
+            if (Vector2.Distance(player.transform.position, transform.position) < FindObjectOfType<KT_CharacterMovement>().maxDist)
+                canControl = true;
+            else
+                canControl = false;
+
+            canCon.SetActive(canControl);
+            cantCon.SetActive(!canControl);
+        }
+        else
+        {
+            canCon.SetActive(false);
+            cantCon.SetActive(false);
+
+        }
     }
 }
