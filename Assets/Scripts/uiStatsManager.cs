@@ -52,7 +52,7 @@ public class uiStatsManager : MonoBehaviour
     [Header("Game Timer")]
     [SerializeField]
     Text gameTimerText;
-    float displayTimer;
+    public static float displayTimer;
     bool restart = false;
 
     void Start ()
