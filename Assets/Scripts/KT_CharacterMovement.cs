@@ -17,8 +17,7 @@ public class KT_CharacterMovement : MonoBehaviour {
     [SerializeField]
     float distanceToTarget;
 
-    [SerializeField]
-    float maxDist = 5;
+    public float maxDist = 5;
 
     [SerializeField]
     float moveSpeed = 0.07f;
