@@ -10,7 +10,7 @@ public class BPPickup : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            FindObjectOfType<uiStatsManager>().maxMindPower += maxBPIncreaseBy;
+            uiStatsManager.maxMindPower += maxBPIncreaseBy;
             FindObjectOfType<uiStatsManager>().currentMindPower += maxBPIncreaseBy;
             FindObjectOfType<uiStatsManager>().mindPowerSlider.maxValue += maxBPIncreaseBy;
             Destroy(gameObject);
