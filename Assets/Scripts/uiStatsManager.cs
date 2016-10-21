@@ -16,7 +16,7 @@ public class uiStatsManager : MonoBehaviour
     Text valueText;
     //[HideInInspector]
     public float currentMindPower;
-    public static float maxMindPower;
+    public static float maxMindPower = 100;
 
     [Header("Caught Values")]
     [SerializeField]
