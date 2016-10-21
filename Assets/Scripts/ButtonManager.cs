@@ -14,6 +14,9 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     GameObject controls;
 
+    [SerializeField]
+    GameObject credits;
+
     public bool opening;
     void Start ()
     {
@@ -35,6 +38,11 @@ public class ButtonManager : MonoBehaviour
             Time.timeScale = 0;
         if (!uiStatsManager.isPaused)
             Time.timeScale = 1;
+    }
+
+    public void ToggleCredits()
+    {
+        credits.SetActive(!credits.activeInHierarchy);
     }
 
     public void Play()
