@@ -24,12 +24,27 @@ public class ControlSwap : MonoBehaviour {
         if (!transform.parent.GetComponent<Unit>().isControlled)
         {
             if (Vector2.Distance(controlled.transform.position, transform.position) < FindObjectOfType<KT_CharacterMovement>().maxDist)
-                canControl = true;
+            {
+                RaycastHit2D hit;
+                if (hit = Physics2D.Raycast(transform.position, (controlled.transform.position - transform.position),
+                    FindObjectOfType<KT_CharacterMovement>().maxDist))
+                {
+                    if (hit.collider.tag == "Player")
+                        canControl = true;
+                    else
+                        canControl = false;
+
+                }
+                else
+                    canControl = false;
+
+            }
             else
                 canControl = false;
 
             canCon.SetActive(canControl);
             cantCon.SetActive(!canControl);
+
         }
         else
         {

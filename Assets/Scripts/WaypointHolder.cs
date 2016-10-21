@@ -7,7 +7,7 @@ using System.Collections;
 public class WaypointHolder : MonoBehaviour {
 
 #if(UNITY_EDITOR)
-    [MenuItem("Waypoints/UpdateWaypoints _%W")]
+    [MenuItem("Waypoints/UpdateWaypoints _%P")]
     static void ExampleCallback()
     {
         Object[] all = FindObjectsOfType(typeof(Waypoint));

@@ -57,10 +57,13 @@ public class uiStatsManager : MonoBehaviour
 
     void Start ()
     {
-        mindPowerSlider.maxValue = maxMindPower;
-        mindPowerSlider.minValue = 0;
-        currentMindPower = maxMindPower;
-        mindPowerSlider.value = maxMindPower;
+        if (mindPowerSlider)
+        {
+            mindPowerSlider.maxValue = maxMindPower;
+            mindPowerSlider.minValue = 0;
+            currentMindPower = maxMindPower;
+            mindPowerSlider.value = maxMindPower;
+        }
         isPaused = false;
 
         if (caughtSlider)
@@ -84,8 +87,11 @@ public class uiStatsManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
-        mindPowerSlider.value = currentMindPower;
-        valueText.text = currentMindPower.ToString("0");
+        if (mindPowerSlider)
+        {
+            mindPowerSlider.value = currentMindPower;
+            valueText.text = currentMindPower.ToString("0");
+        }
 
         if (popupDisplayTime > 0)
         {
@@ -94,6 +100,7 @@ public class uiStatsManager : MonoBehaviour
         }
         else
         {
+            if(popupGO)
             popupGO.SetActive(false);
         }
 
@@ -140,9 +147,25 @@ public class uiStatsManager : MonoBehaviour
                 currentCaughtValue = 0;
         }
 
+        if(!FindObjectOfType<KT_GameOver>())
         gameTimer += Time.deltaTime;
-        displayTimer = gameTimer * 100;
-        gameTimerText.text = displayTimer.ToString("0:00:00");
+        //displayTimer = gameTimer * 100;
+        if (gameTimerText)
+            gameTimerText.text = SetBaseSixty(gameTimer); //displayTimer.ToString("0:00:00");
+    }
+
+    public string SetBaseSixty(float timer)
+    {
+        //gameTimer -= Time.deltaTime;
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        float seconds = timer - minutes * 60;
+        float sec = seconds * 100;
+        //int miliseconds = Mathf.FloorToInt(sec * 100);
+        //if(miliseconds / 100 > 1)
+        //{
+        //    miliseconds = miliseconds / 100;
+        //}
+        return string.Format("{0:0}:{1:00:00}", minutes, sec);
     }
 
     public void GrabTheMessage (string talker, string body, float timeToDisplay, GameObject whoTalks)
