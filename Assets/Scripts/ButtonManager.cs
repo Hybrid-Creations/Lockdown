@@ -40,6 +40,11 @@ public class ButtonManager : MonoBehaviour
             Time.timeScale = 1;
     }
 
+    public void ToggleControls()
+    {
+        controls.SetActive(!controls.activeInHierarchy);
+    }
+
     public void ToggleCredits()
     {
         credits.SetActive(!credits.activeInHierarchy);
