@@ -1,9 +1,12 @@
-﻿using UnityEditor;
+﻿#if(UNITY_EDITOR)
+using UnityEditor;
+#endif
 using UnityEngine;
 using System.Collections;
 
 public class WaypointHolder : MonoBehaviour {
 
+#if(UNITY_EDITOR)
     [MenuItem("Waypoints/UpdateWaypoints _%W")]
     static void ExampleCallback()
     {
@@ -15,4 +18,5 @@ public class WaypointHolder : MonoBehaviour {
             wP.transform.parent = GameObject.FindGameObjectWithTag("WaypointHolder").transform;
         }
     }
+#endif
 }
