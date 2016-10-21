@@ -82,7 +82,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
         else
         {
-            if (FindObjectOfType<uiStatsManager>().currentMindPower < uiStatsManager.maxMindPower)
+            if (FindObjectOfType<uiStatsManager>().currentMindPower < FindObjectOfType<uiStatsManager>().maxMindPower)
             {
                 rechargePower = true;
                 if (rechargePower)
@@ -91,9 +91,9 @@ public class KT_CharacterMovement : MonoBehaviour {
                     if (rechargeTimer >= 1)
                     {
                         FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * 10;
-                        if (FindObjectOfType<uiStatsManager>().currentMindPower >= uiStatsManager.maxMindPower)
+                        if (FindObjectOfType<uiStatsManager>().currentMindPower >= FindObjectOfType<uiStatsManager>().maxMindPower)
                         {
-                            FindObjectOfType<uiStatsManager>().currentMindPower = uiStatsManager.maxMindPower;
+                            FindObjectOfType<uiStatsManager>().currentMindPower = FindObjectOfType<uiStatsManager>().maxMindPower;
                             rechargeTimer = 0;
                             rechargePower = false;
                         }
