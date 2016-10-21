@@ -21,6 +21,9 @@ public class KT_DoorPanel : MonoBehaviour {
     [SerializeField]
     float openTimer;
 
+    [SerializeField]
+    GameObject[] lightPath;
+
     bool panelReady = false;
     bool panelActivation = false;
     bool clicked = false;
@@ -45,6 +48,7 @@ public class KT_DoorPanel : MonoBehaviour {
             openTimer += Time.deltaTime;
             if (openTimer >= .5f)
                 door.SetActive(false);
+            LightPathOn();
         }
     }
 
@@ -80,5 +84,16 @@ public class KT_DoorPanel : MonoBehaviour {
     {
         lightOne.GetComponent<SpriteRenderer>().color = lightOff;
         lightTwo.GetComponent<SpriteRenderer>().color = lightOn;
+    }
+
+    void LightPathOn()
+    {
+        if (clicked)
+        {
+            for (int i = 0; i < lightPath.Length; i++)
+            {
+                lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;
+            }
+        }
     }
 }

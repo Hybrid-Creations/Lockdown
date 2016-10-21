@@ -21,6 +21,9 @@ public class KT_FinalPanel : MonoBehaviour {
     [SerializeField]
     float openTimer;
 
+    [SerializeField]
+    GameObject[] lightPath;
+
     bool panelReady = false;
     bool panelActivation = false;
     bool clicked = false;
@@ -50,6 +53,7 @@ public class KT_FinalPanel : MonoBehaviour {
                 finalDoor[i].SetActive(false);
                 }
             }
+            LightPathOn();
         }
     }
 
@@ -85,5 +89,16 @@ public class KT_FinalPanel : MonoBehaviour {
     {
         lightOne.GetComponent<SpriteRenderer>().color = lightOff;
         lightTwo.GetComponent<SpriteRenderer>().color = lightOn;
+    }
+
+    void LightPathOn()
+    {
+        if (clicked)
+        {
+            for (int i = 0; i < lightPath.Length; i++)
+            {
+                lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;
+            }
+        }
     }
 }
