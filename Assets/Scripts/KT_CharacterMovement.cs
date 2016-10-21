@@ -78,7 +78,7 @@ public class KT_CharacterMovement : MonoBehaviour {
 
         if (currentControl != player)
         {
-            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 2.3f;
+            FindObjectOfType<uiStatsManager>().currentMindPower -= (Time.deltaTime * distancetoControl) * 3f;
         }
         else
         {
@@ -90,7 +90,7 @@ public class KT_CharacterMovement : MonoBehaviour {
                     rechargeTimer += Time.deltaTime;
                     if (rechargeTimer >= 1)
                     {
-                        FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * 15;
+                        FindObjectOfType<uiStatsManager>().currentMindPower += Time.deltaTime * 10;
                         if (FindObjectOfType<uiStatsManager>().currentMindPower >= FindObjectOfType<uiStatsManager>().maxMindPower)
                         {
                             FindObjectOfType<uiStatsManager>().currentMindPower = FindObjectOfType<uiStatsManager>().maxMindPower;
