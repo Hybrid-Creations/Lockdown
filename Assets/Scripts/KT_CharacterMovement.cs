@@ -192,6 +192,13 @@ public class KT_CharacterMovement : MonoBehaviour {
             currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
         }
 
+        if (!Input.anyKey)
+        {
+            Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
+            newVel.x = 0;
+            currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
+        }
+
         currentControl.GetComponent<Unit>().lookDirections[0].gameObject.SetActive(up);
         currentControl.GetComponent<Unit>().lookDirections[1].gameObject.SetActive(right);
         currentControl.GetComponent<Unit>().lookDirections[2].gameObject.SetActive(down);
