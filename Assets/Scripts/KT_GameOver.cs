@@ -7,9 +7,11 @@ public class KT_GameOver : MonoBehaviour {
     [SerializeField]
     Text Time;
 
+    float timerAmount;
     // Use this for initialization
     void Start()
     {
+        timerAmount = uiStatsManager.gameTimer;
     }
 	// Update is called once per frame
 	void Update () {
@@ -18,6 +20,6 @@ public class KT_GameOver : MonoBehaviour {
 
     void DisplayTime()
     {
-        Time.text += " " + uiStatsManager.displayTimer.ToString("0:00:00");
+        Time.text += " " + timerAmount.ToString("0:00:00");
     }
 }
