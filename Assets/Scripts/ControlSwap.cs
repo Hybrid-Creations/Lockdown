@@ -11,19 +11,19 @@ public class ControlSwap : MonoBehaviour {
     [SerializeField]
     GameObject cantCon;
 
-    GameObject player;
+    GameObject controlled;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
+        controlled = FindObjectOfType<KT_CharacterMovement>().currentControl;
 
         if (!transform.parent.GetComponent<Unit>().isControlled)
         {
-            if (Vector2.Distance(player.transform.position, transform.position) < FindObjectOfType<KT_CharacterMovement>().maxDist)
+            if (Vector2.Distance(controlled.transform.position, transform.position) < FindObjectOfType<KT_CharacterMovement>().maxDist)
                 canControl = true;
             else
                 canControl = false;

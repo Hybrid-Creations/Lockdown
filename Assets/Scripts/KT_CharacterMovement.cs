@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Collections;
 
 public class KT_CharacterMovement : MonoBehaviour {
+
     [SerializeField]
     Light psyGlow;
 
@@ -17,10 +18,10 @@ public class KT_CharacterMovement : MonoBehaviour {
     [SerializeField]
     float distanceToTarget;
 
-    public float maxDist = 5;
+    public float maxDist = 4;
 
     [SerializeField]
-    float moveSpeed = 0.07f;
+    float moveSpeed = 1;
 
     [SerializeField]
     float maxSpeed = 5;
@@ -53,7 +54,7 @@ public class KT_CharacterMovement : MonoBehaviour {
     void Update()
     {
         psyGlow = currentControl.GetComponent<Unit>().lightObj;
-        if (currentControl == player)
+        //if (currentControl == player)
         {
             if (lightOn)
                 psyGlow.enabled = true;
