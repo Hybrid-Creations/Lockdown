@@ -7,12 +7,12 @@ using UnityEngine;
 using System.Collections;
 
 public class Brute : Unit {
-    [Header("")]
-    //leave this please
 
-    public GameObject dank;
-    [SerializeField]
-    GameObject memes;
+    void Start ()
+    {
+        originalPosition = transform.position;
+        currentWaypoint = waypoints[0];
+    }
 
     void Update()
     {
@@ -25,5 +25,23 @@ public class Brute : Unit {
             MoveTowardsWaypoint(currentWaypoint.gameObject.transform.position);
         if (isControlled)
             PulseLight();
+    }
+
+    void OnCollisionStay2D (Collision2D other)
+    {
+        if(other.collider.gameObject.tag == "BruteBlock")
+        {
+            other.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            other.collider.gameObject.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+        }
+    }
+
+    void OnCollisionExit2D (Collision2D other)
+    {
+        if (other.collider.gameObject.tag == "BruteBlock")
+        {
+            other.collider.gameObject.GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
+            other.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        }
     }
 }

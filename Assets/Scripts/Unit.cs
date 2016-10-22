@@ -62,7 +62,8 @@ public class Unit : MonoBehaviour
     public Vector3 originalPosition;
     [HideInInspector]
     public Vector3 oldPosition;
-    Vector3 difference;
+    [HideInInspector]
+    public Vector3 difference;
 
     [HideInInspector]
     public float closestDistance;
