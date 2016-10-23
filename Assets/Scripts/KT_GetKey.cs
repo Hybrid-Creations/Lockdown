@@ -10,10 +10,13 @@ public class KT_GetKey : MonoBehaviour
     [SerializeField]
     Light keyLight;
 
+    GameObject player;
+
     public static bool hasKey;
 
     void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         keyLight = key.GetComponent<Light>();
         hasKey = false;
     }
@@ -22,6 +25,7 @@ public class KT_GetKey : MonoBehaviour
     {
         if (other.tag == "Key")
         {
+            player.GetComponent<KT_UseAudio>().AudClips(3);
             key.transform.position = transform.position;
             key.GetComponent<BoxCollider2D>().enabled = false;
             key.transform.parent = transform;

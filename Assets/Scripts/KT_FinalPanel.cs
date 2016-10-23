@@ -24,12 +24,15 @@ public class KT_FinalPanel : MonoBehaviour {
     [SerializeField]
     GameObject[] lightPath;
 
+    GameObject player;
+
     bool panelReady = false;
     bool panelActivation = false;
     bool clicked = false;
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         panelWork = GetComponent<Animator>();
         lightOn = Color.green;
         lightOff = Color.grey;
@@ -81,6 +84,7 @@ public class KT_FinalPanel : MonoBehaviour {
         if (panelReady && panelActivation == false && clicked == false)
         {
             clicked = true;
+            player.GetComponent<KT_UseAudio>().AudClips(1);
             Debug.Log("Clicked");
         }
     }
