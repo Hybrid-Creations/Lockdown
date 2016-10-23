@@ -10,7 +10,8 @@ public class Repath : MonoBehaviour {
         PURPLE,
         GREEN,
         ORANGE,
-        GREY
+        GREY,
+        BRUTE
     }
 
     public WhoCanPath myRoomType = WhoCanPath.GREY;
@@ -25,6 +26,20 @@ public class Repath : MonoBehaviour {
     {
         if (col.tag == "Enemy")
         {
+            //Brute
+            if (myRoomType == WhoCanPath.BRUTE)
+            {
+                if (col.GetComponent<Brute>()) {
+                    if (col.GetComponent<Brute>().myType == Brute.TypeOf.BRUTE)
+                    {
+                        if (giveNewPath)
+                        {
+                            col.GetComponent<Unit>().waypoints = newPath;
+                        }
+                    }
+                }
+            }
+
             //All
             if(myRoomType == WhoCanPath.GREY)
             {
@@ -35,11 +50,14 @@ public class Repath : MonoBehaviour {
             //Red
             if (myRoomType == WhoCanPath.RED)
             {
-                if (col.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+                if (col.GetComponent<LabTech>())
                 {
-                    col.GetComponent<Unit>().rePath = true;
-                    Debug.Log("DANK MEMES??????");
-                    col.GetComponent<Unit>().roomWaypoints = roomWaypoints;
+                    if (col.GetComponent<LabTech>().myType == LabTech.TechType.RED)
+                    {
+                        col.GetComponent<Unit>().rePath = true;
+                        Debug.Log("DANK MEMES??????");
+                        col.GetComponent<Unit>().roomWaypoints = roomWaypoints;
+                    }
                 }
             }
             //Purple
@@ -93,11 +111,6 @@ public class Repath : MonoBehaviour {
                     Debug.Log("DANK MEMES??????");
                     col.GetComponent<Unit>().roomWaypoints = roomWaypoints;
                 }
-            }
-
-            if (giveNewPath)
-            {
-                col.GetComponent<Unit>().waypoints = newPath;
             }
         }
     }
