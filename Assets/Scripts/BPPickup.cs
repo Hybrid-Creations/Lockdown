@@ -17,7 +17,7 @@ public class BPPickup : MonoBehaviour {
 
             GetComponent<Renderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
-            GetComponentInChildren<Light>().enabled = false;
+            transform.GetChild(0).GetComponent<Light>().gameObject.SetActive(false);
             Destroy(gameObject, 4);
         }
     }
