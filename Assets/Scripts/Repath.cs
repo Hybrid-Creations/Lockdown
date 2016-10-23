@@ -17,6 +17,10 @@ public class Repath : MonoBehaviour {
 
     public Waypoint[] roomWaypoints;
 
+    public bool giveNewPath;
+
+    public Waypoint[] newPath;
+
     void OnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "Enemy")
@@ -89,6 +93,11 @@ public class Repath : MonoBehaviour {
                     Debug.Log("DANK MEMES??????");
                     col.GetComponent<Unit>().roomWaypoints = roomWaypoints;
                 }
+            }
+
+            if (giveNewPath)
+            {
+                col.GetComponent<Unit>().waypoints = newPath;
             }
         }
     }

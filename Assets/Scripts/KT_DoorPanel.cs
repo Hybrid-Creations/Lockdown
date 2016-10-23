@@ -13,6 +13,9 @@ public class KT_DoorPanel : MonoBehaviour {
     [SerializeField]
     GameObject lightTwo;
 
+    [SerializeField]
+    GameObject thingToActivate;
+
     Color lightOn;
     Color lightOff;
 
@@ -73,10 +76,11 @@ public class KT_DoorPanel : MonoBehaviour {
 
     public void ReadyToClick()
     {
-            Debug.Log("Clicked");
+        Debug.Log("Clicked");
         if (panelReady && panelActivation == false && clicked == false)
         {
             clicked = true;
+            thingToActivate.SetActive(true);
         }
     }
 
