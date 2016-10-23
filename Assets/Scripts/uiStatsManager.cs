@@ -18,6 +18,8 @@ public class uiStatsManager : MonoBehaviour
     public float currentMindPower;
     public static float maxMindPower = 100;
 
+    GameObject player;
+
     [Header("Caught Values")]
     [SerializeField]
     Slider caughtSlider;
@@ -57,6 +59,7 @@ public class uiStatsManager : MonoBehaviour
 
     void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         if (mindPowerSlider)
         {
             mindPowerSlider.maxValue = maxMindPower;
@@ -132,6 +135,7 @@ public class uiStatsManager : MonoBehaviour
                 currentCaughtValue = maxcaughtValue;
                 //caughtText.text = "Caught!";
                 Debug.Log("Caught!");
+                //player.GetComponent<KT_UseAudio>().AudClips(2);
                 caughtText.gameObject.SetActive(true);
                 restartTimer += Time.deltaTime;
                 isPaused = true;
