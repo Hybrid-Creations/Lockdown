@@ -16,6 +16,8 @@ public class BPPickup : MonoBehaviour {
             FindObjectOfType<uiStatsManager>().GrabTheMessage("Brain Power + 10!", "Your Brain Power Has Incrased!", 3, gameObject);
 
             GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponentInChildren<Light>().enabled = false;
             Destroy(gameObject, 4);
         }
     }
