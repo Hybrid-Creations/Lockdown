@@ -13,7 +13,10 @@ public class BPPickup : MonoBehaviour {
             uiStatsManager.maxMindPower += maxBPIncreaseBy;
             FindObjectOfType<uiStatsManager>().currentMindPower += maxBPIncreaseBy;
             FindObjectOfType<uiStatsManager>().mindPowerSlider.maxValue += maxBPIncreaseBy;
-            Destroy(gameObject);
+            FindObjectOfType<uiStatsManager>().GrabTheMessage("Brain Power + 10!", "Your Brain Power Has Incrased!", 3, gameObject);
+
+            GetComponent<Renderer>().enabled = false;
+            Destroy(gameObject, 4);
         }
     }
 }
