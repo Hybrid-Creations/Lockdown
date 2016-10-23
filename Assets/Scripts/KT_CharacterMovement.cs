@@ -118,7 +118,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
     }
 
-    void CharacterMovement()
+    void CharacterMovement ()
     {
         if (currentControl.GetComponent<Rigidbody2D>().velocity.y < maxSpeed)
         {
@@ -165,7 +165,7 @@ public class KT_CharacterMovement : MonoBehaviour {
                 down = false;
                 left = false;
             }
-        }  
+        }
 
         if (Input.GetKeyUp(KeyCode.W))
         {
@@ -196,6 +196,7 @@ public class KT_CharacterMovement : MonoBehaviour {
         {
             Vector2 newVel = currentControl.GetComponent<Rigidbody2D>().velocity;
             newVel.x = 0;
+            newVel.y = 0;
             currentControl.GetComponent<Rigidbody2D>().velocity = newVel;
         }
 
@@ -207,6 +208,16 @@ public class KT_CharacterMovement : MonoBehaviour {
 
         if (uiStatsManager.isPaused)
             currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        if (currentControl.GetComponent<LabTech>())
+        {
+            if (currentControl.GetComponent<LabTech>().BruteBlock)
+            {
+                Vector2 toBox = currentControl.GetComponent<LabTech>().BruteBlock.transform.position - currentControl.transform.position;
+                currentControl.GetComponent<Rigidbody2D>().velocity = -toBox.normalized;
+                currentControl.GetComponent<LabTech>().BruteBlock.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+        }
     }
 
     void CanControl()
@@ -282,6 +293,8 @@ public class KT_CharacterMovement : MonoBehaviour {
             currentControl.GetComponent<Unit>().lightObj.enabled = false;
         }
         currentControl.layer = 0;
+
+        //currentControl swapped
         currentControl = newObject;
         if (currentControl == player)
         {
@@ -291,6 +304,16 @@ public class KT_CharacterMovement : MonoBehaviour {
         }
         currentControl.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         currentControl.GetComponent<Unit>().isControlled = true;
+
+        if (currentControl.GetComponent<LabTech>())
+        {
+            if (currentControl.GetComponent<LabTech>().BruteBlock)
+            {
+                Vector2 toBox = currentControl.GetComponent<LabTech>().BruteBlock.transform.position - transform.position;
+                currentControl.GetComponent<Rigidbody2D>().velocity = -toBox.normalized;
+            }
+        }
+
         //Debug.Log("player controlled");
         lightOn = true;
     }
