@@ -80,6 +80,7 @@ public class KT_DoorPanel : MonoBehaviour {
         if (panelReady && panelActivation == false && clicked == false)
         {
             clicked = true;
+            if(thingToActivate)
             thingToActivate.SetActive(true);
         }
     }
