@@ -222,7 +222,6 @@ public class KT_CharacterMovement : MonoBehaviour {
 
     void CanControl()
     {
-        Debug.Log(uiStatsManager.isPaused);
         Vector2 drawDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - currentControl.transform.position);
         //currentControl.layer = 2;
 
@@ -238,9 +237,8 @@ public class KT_CharacterMovement : MonoBehaviour {
                 //    Debug.Log(hit.collider.name);
                 if (drawDirection.magnitude < maxDist)
                 {
-
                     //Debug.Log(hit.collider.name);
-                    if (hit.collider.gameObject.GetComponent<Unit>() != null)
+                    if (hit.collider.gameObject.GetComponent<Unit>() != null && hit.collider.gameObject.tag != "Player")
                     {
                         if (currentControl == player)
                             lightOn = true;
