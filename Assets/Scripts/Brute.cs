@@ -8,6 +8,13 @@ using System.Collections;
 
 public class Brute : Unit {
 
+    public enum TypeOf
+    {
+        BRUTE
+    }
+
+    public TypeOf myType = TypeOf.BRUTE;
+
     void Start ()
     {
         originalPosition = transform.position;
