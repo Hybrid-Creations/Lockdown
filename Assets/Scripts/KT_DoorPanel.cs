@@ -45,17 +45,13 @@ public class KT_DoorPanel : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        panelActivation = panelWork.GetBool("On");
-        if (clicked)
-        {
-            panelWork.SetBool("On", true);
-            openTimer += Time.deltaTime;
-            if (openTimer >= .5f)
-                door.SetActive(false);
-            LightPathOn();
-        }
+    void Update ()
+	{
+		panelActivation = panelWork.GetBool ("On");
+		if (clicked) {
+			panelWork.SetBool ("On", true);
+			LightPathOn ();
+		}
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -99,10 +95,17 @@ public class KT_DoorPanel : MonoBehaviour {
     {
         if (clicked)
         {
-            for (int i = 0; i < lightPath.Length; i++)
-            {
-                lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;
-            }
+			StartCoroutine(WaitTime());
         }
     }
+
+    IEnumerator WaitTime ()
+	{   for (int i = 0; i < lightPath.Length; i++)
+            {
+				yield return new WaitForSeconds(.1f);
+                lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;        
+            }
+		door.SetActive(false);
+            
+	}
 }

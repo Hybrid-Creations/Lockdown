@@ -48,14 +48,6 @@ public class KT_FinalPanel : MonoBehaviour {
         if (clicked)
         {
             panelWork.SetBool("On", true);
-            openTimer += Time.deltaTime;
-            if(openTimer >= .5f)
-            {
-                for(int i = 0; i < finalDoor.Length; i++)
-                {                   
-                finalDoor[i].SetActive(false);
-                }
-            }
             LightPathOn();
         }
     }
@@ -99,10 +91,20 @@ public class KT_FinalPanel : MonoBehaviour {
     {
         if (clicked)
         {
-            for (int i = 0; i < lightPath.Length; i++)
-            {
-                lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;
-            }
+         StartCoroutine(WaitTime());
+		
         }
     }
+
+    IEnumerator WaitTime ()
+	{
+		for (int i = 0; i < lightPath.Length; i++) {
+			yield return new WaitForSeconds (.1f);
+			lightPath[i].GetComponent<SpriteRenderer>().color = Color.green;
+		}
+		for(int i = 0; i < finalDoor.Length; i++)
+                {                   
+                finalDoor[i].SetActive(false);
+                }
+	}
 }
